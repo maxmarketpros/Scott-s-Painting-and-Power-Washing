@@ -75,13 +75,42 @@ export function generateServiceSchema(service: ServiceConfig) {
     serviceType: service.title,
     provider: {
       "@type": "LocalBusiness",
+      "@id": `${siteConfig.url}/#business`,
       name: siteConfig.name,
       url: siteConfig.url,
+      telephone: businessConfig.phone,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: businessConfig.address.street,
+        addressLocality: businessConfig.address.city,
+        addressRegion: businessConfig.address.state,
+        postalCode: businessConfig.address.zip,
+        addressCountry: "US",
+      },
     },
-    areaServed: businessConfig.serviceAreas.map((area) => ({
-      "@type": "City",
-      name: area,
-    })),
+    areaServed: [
+      ...businessConfig.serviceAreas.map((area) => ({
+        "@type": "City",
+        name: area,
+        containedInPlace: { "@type": "State", name: "Ohio" },
+      })),
+      { "@type": "AdministrativeArea", name: "Fairfield County, OH" },
+      { "@type": "AdministrativeArea", name: "Franklin County, OH" },
+      { "@type": "AdministrativeArea", name: "Licking County, OH" },
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `${service.title} Services`,
+      itemListElement: service.benefits.map((b, i) => ({
+        "@type": "Offer",
+        position: i + 1,
+        itemOffered: {
+          "@type": "Service",
+          name: b.title,
+          description: b.description,
+        },
+      })),
+    },
     url: `${siteConfig.url}/services/${service.slug}`,
   };
 }

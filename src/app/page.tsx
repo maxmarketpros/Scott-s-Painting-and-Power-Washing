@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
+import { generatePageMetadata } from "@/lib/metadata";
 import { Hero } from "@/components/sections/Hero";
 import { InfoBar } from "@/components/layout/InfoBar";
 import { SplitSection } from "@/components/sections/SplitSection";
@@ -18,21 +19,18 @@ import { homepageContent } from "@/config/homepage";
 import { homepageFaqKeys } from "@/config/faqs";
 import { ArrowRight } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: `${siteConfig.name} | ${siteConfig.tagline}`,
   description: siteConfig.description,
-  openGraph: {
-    title: `${siteConfig.name} | ${siteConfig.tagline}`,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    images: [{ url: siteConfig.ogImage }],
-    type: "website",
-  },
-  alternates: {
-    canonical: siteConfig.url,
-  },
-};
+  path: "/",
+  keywords: [
+    "painting Fairfield County OH",
+    "power washing Columbus OH",
+    "house painting Central Ohio",
+    "interior painting Pickerington",
+    "exterior painting Ohio",
+  ],
+});
 
 export default function HomePage() {
   const content = homepageContent;

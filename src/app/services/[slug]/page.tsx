@@ -57,12 +57,25 @@ export default async function ServicePage({ params }: ServicePageProps) {
     notFound();
   }
 
+  const defaultFeatureListItems = [
+    {
+      title: "Quality You Can See",
+      description:
+        "Every project showcases our commitment to precision and craftsmanship. We take pride in delivering work that stands out for its quality and attention to detail.",
+    },
+    {
+      title: "Results That Last",
+      description:
+        "Our work is built to last. We use premium materials and proven techniques to ensure your investment delivers value for years to come.",
+    },
+  ];
+  const featureItems = service.featureListItems ?? defaultFeatureListItems;
   const featureListItems = service.detailImages.map((imgKey, i) => ({
-    title: i === 0 ? "Quality You Can See" : "Results That Last",
+    title: featureItems[i]?.title ?? defaultFeatureListItems[i]?.title ?? "",
     description:
-      i === 0
-        ? "Every project showcases our commitment to precision and craftsmanship. We take pride in delivering work that stands out for its quality and attention to detail."
-        : "Our work is built to last. We use premium materials and proven techniques to ensure your investment delivers value for years to come.",
+      featureItems[i]?.description ??
+      defaultFeatureListItems[i]?.description ??
+      "",
     imageKey: imgKey,
   }));
 
@@ -108,8 +121,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
         imageAspect="4/3"
       >
         <SectionHeading
-          eyebrow="Overview"
-          heading={`Why Choose Our ${service.title}`}
+          eyebrow={service.overviewEyebrow ?? "Overview"}
+          heading={
+            service.overviewHeading ?? `Why Choose Our ${service.title}`
+          }
         />
         {service.description.map((p, i) => (
           <p
@@ -139,9 +154,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
       {/* Benefits */}
       <BenefitGrid
         benefits={service.benefits}
-        eyebrow="What Sets Us Apart"
-        heading="Key Benefits"
-        subtitle={`Here's what makes our ${service.title.toLowerCase()} stand out from the rest.`}
+        eyebrow={service.benefitsEyebrow ?? "What Sets Us Apart"}
+        heading={service.benefitsHeading ?? "Key Benefits"}
+        subtitle={
+          service.benefitsSubtitle ??
+          `Here's what makes our ${service.title.toLowerCase()} stand out from the rest.`
+        }
         bgColor="surface"
         primaryCta={ctaProps.primary}
         secondaryCta={ctaProps.secondary}
@@ -181,8 +199,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
       {/* FAQ — service-specific (6 questions now) */}
       <FAQSection
-        eyebrow="Common Questions"
-        heading={`${service.title} FAQ`}
+        eyebrow={service.faqEyebrow ?? "Common Questions"}
+        heading={service.faqHeading ?? `${service.title} FAQ`}
         faqKeys={service.faqKeys}
       />
 

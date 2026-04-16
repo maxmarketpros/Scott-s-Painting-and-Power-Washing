@@ -27,6 +27,15 @@ export interface ServiceConfig {
   ctaHeading: string;
   ctaText: string;
   h1Override?: string;
+  // Per-service section heading overrides — makes every service page feel bespoke
+  overviewEyebrow?: string;
+  overviewHeading?: string;
+  benefitsEyebrow?: string;
+  benefitsHeading?: string;
+  benefitsSubtitle?: string;
+  faqEyebrow?: string;
+  faqHeading?: string;
+  featureListItems?: Array<{ title: string; description: string }>;
   // SEO-focused sub-topic sections for service pages
   // These provide keyword-rich content with icon cards
   topicSectionA: {

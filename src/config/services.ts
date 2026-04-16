@@ -66,6 +66,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Bring Fresh Color Into Every Room",
     ctaText:
       "Schedule your free interior painting consultation and discover how the right colors can transform your home.",
+    overviewEyebrow: "Inside Your Home",
+    overviewHeading: "Room-by-Room Interior Painting Across Fairfield County, OH",
+    benefitsEyebrow: "Our Promise",
+    benefitsHeading: "Why Central Ohio Homeowners Invite Us Inside for Interior Painting",
+    benefitsSubtitle:
+      "Careful prep, zero-VOC options, and cut-lines that make trim look hand-drawn — on every interior painting job in Fairfield County.",
+    faqEyebrow: "Before You Pick Up a Brush",
+    faqHeading: "Interior Painting Questions From Central Ohio Homeowners",
+    featureListItems: [
+      {
+        title: "Color That Reads Right in Ohio Light",
+        description:
+          "We test samples against your actual walls at morning, midday, and evening so the color you commit to is the color you live with year-round. Ohio's low winter sun reads very differently from July afternoons, and we factor that in every time.",
+      },
+      {
+        title: "Clean Cut-Lines on Every Interior Painting Job",
+        description:
+          "No blue tape fur, no sloppy ceiling lines, no paint on trim. Every room is cut by hand with a steady brush, then back-rolled for even sheen. It's slower, and it shows in the finish.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Interior Expertise",
       heading:
@@ -208,6 +228,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Give Your Home the Exterior It Deserves",
     ctaText:
       "Request a free exterior estimate and see how a professional repaint can transform your curb appeal.",
+    overviewEyebrow: "Curb Appeal That Lasts",
+    overviewHeading: "Exterior Painting Built for Fairfield County, OH Weather",
+    benefitsEyebrow: "Ohio Weather Ready",
+    benefitsHeading: "Why Our Exterior Painting Outlasts Central Ohio Winters",
+    benefitsSubtitle:
+      "Premium acrylic coatings, thorough surface prep, and timing that respects Ohio's freeze-thaw cycle on every exterior painting project in Central Ohio.",
+    faqEyebrow: "Thinking About Exterior Work?",
+    faqHeading: "Exterior Painting Answers for Fairfield County Homeowners",
+    featureListItems: [
+      {
+        title: "Prep That Actually Lasts",
+        description:
+          "Pressure wash, scrape loose paint, feather-sand transitions, spot-prime bare wood, and replace every failing bead of caulk. Most of the money on an exterior job goes into prep — because that's where longevity lives.",
+      },
+      {
+        title: "Spray + Back-Brush for Adhesion",
+        description:
+          "We spray for even coverage and immediately back-brush key surfaces so the paint penetrates the substrate instead of sitting on top. The result is a finish that holds through 8-10 Ohio winters, not 3.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Exterior Expertise",
       heading:
@@ -350,6 +390,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Love Your Kitchen Again Without a Full Remodel",
     ctaText:
       "Book a free cabinet painting assessment and get a detailed quote for your kitchen transformation.",
+    overviewEyebrow: "A Budget-Friendly Kitchen Refresh",
+    overviewHeading: "Factory-Smooth Cabinet Painting Across Fairfield County, OH",
+    benefitsEyebrow: "The Shop-Booth Difference",
+    benefitsHeading: "Why Our Cabinet Painting Outlasts Central Ohio Kitchens",
+    benefitsSubtitle:
+      "Doors sprayed in our dust-free booth, not brushed in your kitchen — the cabinet painting process every Fairfield County homeowner deserves.",
+    faqEyebrow: "Thinking About Cabinet Painting?",
+    faqHeading: "Cabinet Painting Questions From Fairfield County Homeowners",
+    featureListItems: [
+      {
+        title: "Shop-Sprayed, Not Brushed",
+        description:
+          "We remove every door and drawer front, haul them to our dust-controlled spray booth, and apply cabinet-grade enamel under controlled conditions. That's why our cabinets look factory-finished instead of brush-stroked.",
+      },
+      {
+        title: "Prep Work You Can Trust",
+        description:
+          "Degrease, sand, fill nail holes, and prime with a bonding primer rated for high-touch cabinetry. Without that sequence, paint chips off within a year — which is why bargain cabinet refinishing never lasts.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Cabinet Craft",
       heading: "Expert Cabinet Painting Techniques in Fairfield County, OH",
@@ -491,6 +551,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Reveal the Clean Surface Hiding Under the Grime",
     ctaText:
       "Get a free power washing quote and see what a professional clean can do for your property.",
+    overviewEyebrow: "Grime Meets Its Match",
+    overviewHeading: "Professional Power Washing Across Fairfield County, OH",
+    benefitsEyebrow: "Soft-Wash Done Safely",
+    benefitsHeading: "The Scott's Approach to Power Washing in Central Ohio",
+    benefitsSubtitle:
+      "Calibrated pressure for every surface, biocide treatment for real algae kill, and property care on every power washing job in Ohio.",
+    faqEyebrow: "Thinking About a Wash?",
+    faqHeading: "Power Washing Questions From Fairfield County Homeowners",
+    featureListItems: [
+      {
+        title: "Safe Pressure for Every Surface",
+        description:
+          "Vinyl siding, soft-fired historic brick, cedar shakes, painted trim, and concrete all tolerate very different PSI levels. We match pressure to substrate — never blast-style washing that damages what you asked us to clean.",
+      },
+      {
+        title: "Biocide Treatment, Not Just Rinse",
+        description:
+          "A rinse removes what you see. A biocide application kills the algae and mildew spores rooted in the substrate. Our soft-wash detergents treat the cause so regrowth is measured in years, not weeks.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Surface Cleaning Mastery",
       heading: "Professional Power Washing Services in Fairfield County, OH",
@@ -632,6 +712,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Make Damaged Walls Disappear",
     ctaText:
       "Schedule a drywall repair assessment and get a clear quote to restore your walls to perfect condition.",
+    overviewEyebrow: "From Cracked to Flawless",
+    overviewHeading: "Seamless Drywall Repair Across Fairfield County, OH",
+    benefitsEyebrow: "Surface-Ready Results",
+    benefitsHeading: "Why Our Drywall Repair Blends Into Central Ohio Walls",
+    benefitsSubtitle:
+      "Proper tape, compound selection, and texture matching so your drywall repair disappears after paint — on every job across Ohio.",
+    faqEyebrow: "Got Damage to Fix?",
+    faqHeading: "Drywall Repair Questions From Central Ohio Homeowners",
+    featureListItems: [
+      {
+        title: "Texture Matching That Blends",
+        description:
+          "Knockdown, orange peel, skip-trowel, or smooth — we identify your existing texture and rebuild the patch to match it exactly. No tell-tale flat patch floating in a textured wall.",
+      },
+      {
+        title: "Multi-Coat Feathering",
+        description:
+          "We apply compound in three feathered passes with progressively wider knives, sanding between coats. The result is a repair that photography can't find once the wall's painted.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Drywall Craftsmanship",
       heading: "Expert Drywall Repair Services in Fairfield County, OH",
@@ -774,6 +874,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Turn Your Concrete Floor Into a Showroom",
     ctaText:
       "Request a free floor epoxy consultation and find out how quickly we can transform your space.",
+    overviewEyebrow: "Garage Floors, Reimagined",
+    overviewHeading: "Durable Floor Epoxy for Fairfield County, OH Garages",
+    benefitsEyebrow: "Industrial-Grade Confidence",
+    benefitsHeading: "What Makes Our Floor Epoxy Different in Central Ohio",
+    benefitsSubtitle:
+      "Diamond-grind prep, 100% solids epoxy, and UV topcoat protection on every floor epoxy install we do in Ohio.",
+    faqEyebrow: "Considering Epoxy Flooring?",
+    faqHeading: "Floor Epoxy Questions From Central Ohio Homeowners",
+    featureListItems: [
+      {
+        title: "Diamond-Grind Surface Prep",
+        description:
+          "We grind the concrete with diamond tooling to create a true mechanical bond for the epoxy — acid-etching alone is why cheap epoxy kits peel. Grinding costs more upfront and is why our floors last decades, not years.",
+      },
+      {
+        title: "100% Solids Epoxy + UV Topcoat",
+        description:
+          "We use commercial-grade 100% solids epoxy for hardness, then seal with a UV-stable polyurethane topcoat so sunlight through the garage door doesn't yellow the surface. Decorative flake options are available for added grip and style.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Epoxy Floor Systems",
       heading: "Professional Floor Epoxy Solutions in Fairfield County, OH",
@@ -916,6 +1036,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Breathe New Life Into Your Aluminum Surfaces",
     ctaText:
       "Request a free assessment and learn how our aluminum painting process can refresh your home's exterior.",
+    overviewEyebrow: "Refresh That Chalky Siding",
+    overviewHeading: "Expert Aluminum Painting Across Fairfield County, OH",
+    benefitsEyebrow: "The Prep That Counts",
+    benefitsHeading: "Why Aluminum Painting Needs a Central Ohio Specialist",
+    benefitsSubtitle:
+      "Chalk removal, bonding primer, and a coating engineered for aluminum thermal movement — on every aluminum painting project in Ohio.",
+    faqEyebrow: "Aluminum Concerns?",
+    faqHeading: "Aluminum Painting Answers From Your Central Ohio Team",
+    featureListItems: [
+      {
+        title: "Full Chalk Removal First",
+        description:
+          "Aluminum chalks as it ages — a powdery film that paint can't bond to. We pressure wash, scrub, and rinse until the surface is chalk-free. Skip this and any coating peels within a season.",
+      },
+      {
+        title: "Bonding Primer Built for Metal",
+        description:
+          "We apply a direct-to-metal bonding primer before any finish coat. That chemistry is what makes paint adhere to slick aluminum — and it's the step every budget crew skips.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Aluminum Surface Specialists",
       heading: "Aluminum Painting Expertise in Fairfield County, OH",
@@ -1058,6 +1198,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Protect Your Masonry Investment for the Long Haul",
     ctaText:
       "Get a free masonry assessment and discover the right coating system for your brick, block, or stone surfaces.",
+    overviewEyebrow: "Respecting the Stone",
+    overviewHeading: "Masonry Painting That Protects Central Ohio's Historic Brick",
+    benefitsEyebrow: "Preservation First",
+    benefitsHeading: "Masonry Painting Expertise Across Fairfield County, OH",
+    benefitsSubtitle:
+      "Vapor-permeable mineral coatings, repointing before paint, and proper prep so your Ohio masonry painting lasts decades.",
+    faqEyebrow: "Masonry Questions?",
+    faqHeading: "Masonry Painting Questions From Ohio Homeowners",
+    featureListItems: [
+      {
+        title: "Breathable Mineral Coatings",
+        description:
+          "Old brick needs to release moisture from the interior of the home outward. We use mineral silicate or vapor-permeable acrylics designed for masonry — not house paint that traps water behind the film and causes spalling.",
+      },
+      {
+        title: "Repointing Before Paint",
+        description:
+          "Failing mortar joints get repointed before any coating touches the wall. Painting over failed mortar is a waste of money — the next freeze-thaw cycle opens the joint right back up and takes the paint with it.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Masonry Coating Authority",
       heading: "Specialized Masonry Painting in Fairfield County, OH",
@@ -1199,6 +1359,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Let the Natural Beauty of Your Wood Shine Through",
     ctaText:
       "Schedule a free wood staining evaluation and protect your investment with the right stain system.",
+    overviewEyebrow: "Let the Grain Speak",
+    overviewHeading: "Wood Staining That Honors the Grain in Fairfield County, OH",
+    benefitsEyebrow: "Finish Quality",
+    benefitsHeading: "Why Our Wood Staining Holds Up in Central Ohio",
+    benefitsSubtitle:
+      "Meticulous sanding, the right stain for your species, and the patience to let coats cure — on every wood staining project in Ohio.",
+    faqEyebrow: "Staining Your Wood?",
+    faqHeading: "Wood Staining Questions From Fairfield County Homeowners",
+    featureListItems: [
+      {
+        title: "Right Stain for the Wood",
+        description:
+          "Oak takes stain differently than cedar. Pressure-treated lumber behaves unlike rough-sawn pine. We select transparent, semi-transparent, or solid stain based on your specific species, age, and exposure — not a one-size-fits-all product.",
+      },
+      {
+        title: "Sanded, Cleaned, and Conditioned",
+        description:
+          "A flawless stain finish starts at the sander. We sand to the right grit, remove dust completely, and apply wood conditioner on softwoods to prevent blotching. These steps are invisible in the finished result — and impossible to fake.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Wood Finishing Mastery",
       heading: "Professional Wood Staining Services in Fairfield County, OH",
@@ -1340,6 +1520,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Transform Your Vinyl Siding Without Replacing It",
     ctaText:
       "Get a free vinyl siding painting estimate and see how a new color can completely change your home's look.",
+    overviewEyebrow: "A Second Life for Your Siding",
+    overviewHeading: "Vinyl Siding Painting Across Fairfield County, OH",
+    benefitsEyebrow: "Vinyl-Safe Promise",
+    benefitsHeading: "Vinyl-Safe Siding Painting Built for Central Ohio",
+    benefitsSubtitle:
+      "Paint formulated for vinyl thermal movement — not standard exterior latex — on every vinyl siding painting job we do in Ohio.",
+    faqEyebrow: "Thinking About Your Vinyl?",
+    faqHeading: "Vinyl Siding Painting Questions From Ohio Homeowners",
+    featureListItems: [
+      {
+        title: "Vinyl-Safe Color Selection",
+        description:
+          "Darker paints on vinyl can absorb enough heat to warp the panels in Ohio summers. We stock Sherwin-Williams VinylSafe and Benjamin Moore's vinyl-safe lines, which use heat-reflective pigments that let you go darker without the damage.",
+      },
+      {
+        title: "Clean, Prime, Paint — Done Right",
+        description:
+          "Full pressure wash to remove chalk and mildew, bonding primer on any patched or glossy areas, and two finish coats applied when temperatures cooperate. Skip any step and the paint peels — we don't.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Vinyl Siding Specialists",
       heading:
@@ -1482,6 +1682,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Restore Your Deck to Its Best Season Yet",
     ctaText:
       "Book a free deck staining evaluation and get a custom recommendation for your lumber type and condition.",
+    overviewEyebrow: "Deck Season Starts Here",
+    overviewHeading: "Deck Staining That Survives Central Ohio Summers",
+    benefitsEyebrow: "Built for Seasons Outside",
+    benefitsHeading: "Why Our Deck Staining Lasts in Fairfield County, OH",
+    benefitsSubtitle:
+      "Stripped to bare wood, sanded smooth, and sealed with penetrating stain that weathers gracefully — deck staining done right in Ohio.",
+    faqEyebrow: "Deck Needing Love?",
+    faqHeading: "Deck Staining Questions From Central Ohio Homeowners",
+    featureListItems: [
+      {
+        title: "Back to Bare Wood First",
+        description:
+          "A new stain over old failing stain is just cosmetic. We strip, sand, or chemically clean decks back to bare wood when needed — that's the only way a new finish lasts more than a year on a heavily-used deck.",
+      },
+      {
+        title: "Penetrating Oil or Hybrid Finish",
+        description:
+          "We favor penetrating oil-based and hybrid stains that soak into the wood fibers instead of forming a film on top. When they wear, they fade gracefully — they don't peel. You stain on schedule, not after a full strip.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Deck Staining Expertise",
       heading: "Professional Deck Staining Services in Fairfield County, OH",
@@ -1623,6 +1843,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "Give Your Fence the Finish It Needs to Last",
     ctaText:
       "Request a free fence painting estimate and find out how we can extend the life and beauty of your fence.",
+    overviewEyebrow: "Line by Line",
+    overviewHeading: "Fence Painting That Frames Fairfield County, OH Yards",
+    benefitsEyebrow: "Fence-First Finishing",
+    benefitsHeading: "What Separates Our Fence Painting Across Central Ohio",
+    benefitsSubtitle:
+      "Board-by-board attention, landscape protection, and a finish that respects the length of every fence run in Ohio.",
+    faqEyebrow: "Fence Refresh Questions?",
+    faqHeading: "Fence Painting & Staining FAQs for Fairfield County Homeowners",
+    featureListItems: [
+      {
+        title: "Sprayer + Back-Brush Combo",
+        description:
+          "Long fence runs get airless-sprayed for efficient coverage, then back-brushed into the grain so the finish penetrates instead of sitting on the surface. The result looks hand-stained without the 40-hour labor cost.",
+      },
+      {
+        title: "Landscape Protection",
+        description:
+          "Plastic sheeting, canvas drops, and careful masking protect flower beds, mulch, and adjacent grass from overspray. We treat your yard like we'd treat our own — and we clean up before we leave.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Fence Coating Professionals",
       heading: "Comprehensive Fence Painting Services in Fairfield County, OH",
@@ -1764,6 +2004,26 @@ export const services: ServiceConfig[] = [
     ctaHeading: "One Home, One Crew, One Beautiful Result",
     ctaText:
       "Contact us for a comprehensive house painting estimate that covers every surface under your roof and beyond.",
+    overviewEyebrow: "Your Whole House, Handled",
+    overviewHeading: "Full-House Painting Handled Across Fairfield County, OH",
+    benefitsEyebrow: "One Team, One Standard",
+    benefitsHeading: "The Full-House Painting Advantage in Central Ohio",
+    benefitsSubtitle:
+      "Bundled scheduling, consistent quality, and a single point of contact on every whole-house painting project we do in Ohio.",
+    faqEyebrow: "Full-House Project?",
+    faqHeading: "Whole-House Painting Questions From Fairfield County Homeowners",
+    featureListItems: [
+      {
+        title: "Coordinated Interior + Exterior Schedule",
+        description:
+          "We plan your interior and exterior work around Ohio's weather windows — exterior in summer, interior in winter — so you get one bundled price and a crew that knows your home top to bottom.",
+      },
+      {
+        title: "Single Project Manager",
+        description:
+          "One lead from day one through final walkthrough. You call one phone number, talk to one person, and get one consistent set of answers. No subcontracted hand-offs that lose details along the way.",
+      },
+    ],
     topicSectionA: {
       eyebrow: "Whole-Home Painting Authority",
       heading:
