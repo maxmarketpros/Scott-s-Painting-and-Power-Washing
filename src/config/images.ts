@@ -129,8 +129,8 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
     focalPoint: { x: 0.5, y: 0.4 },
   },
   "service-3-hero": {
-    src: "/images/stock-3.jpg",
-    alt: "Cabinet painting services in Fairfield County",
+    src: "/images/interior-painting-vaultedceiling.jpg",
+    alt: "Bright interior ready for new cabinet painting in Fairfield County",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
@@ -143,22 +143,22 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
     focalPoint: { x: 0.5, y: 0.4 },
   },
   "service-5-hero": {
-    src: "/images/stock-5.jpg",
-    alt: "Drywall repair services in Fairfield County",
+    src: "/images/drywall-repair-collage.jpg",
+    alt: "Drywall repair projects across Fairfield County, OH",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
   },
   "service-6-hero": {
-    src: "/images/stock-6.jpg",
-    alt: "Floor epoxy coating services in Central Ohio",
+    src: "/images/exterior-painting-black-garage.jpg",
+    alt: "Garage exterior in Central Ohio — ready for floor epoxy install",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
   },
   "service-7-hero": {
-    src: "/images/stock-7.jpg",
-    alt: "Aluminum painting services in Fairfield County",
+    src: "/images/gallery-exterior-12.jpg",
+    alt: "Home with aluminum trim painting in Central Ohio",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
@@ -178,15 +178,15 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
     focalPoint: { x: 0.5, y: 0.4 },
   },
   "service-10-hero": {
-    src: "/images/stock-10.jpg",
-    alt: "Vinyl siding painting in Central Ohio",
+    src: "/images/house-painting-brick-landscaped.jpg",
+    alt: "Vinyl-sided home with landscaping in Central Ohio",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
   },
   "service-11-hero": {
-    src: "/images/stock-11.jpg",
-    alt: "Deck staining services in Fairfield County",
+    src: "/images/gallery-exterior-5.jpg",
+    alt: "Outdoor deck project in Central Ohio ready for staining",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
@@ -235,10 +235,10 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
   },
   // Service 3: Cabinet Painting
   "service-3-detail-1": {
-    src: "/images/stock-3.jpg",
-    alt: "Kitchen cabinets painted green with hardware",
+    src: "/images/interior-painting-collage-kitchen.jpg",
+    alt: "Cabinet and kitchen painting before and after in Central Ohio",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   "service-3-detail-2": {
     src: "/images/stock-1.jpg",
@@ -248,23 +248,23 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
   },
   // Service 4: Power Washing
   "service-4-detail-1": {
-    src: "/images/power-washing-action.jpg",
-    alt: "Power washing vinyl siding",
+    src: "/images/gallery-powerwash-1.jpg",
+    alt: "Close-up of power washing equipment cleaning Ohio siding",
     width: 800,
     height: 1067,
   },
   "service-4-detail-2": {
-    src: "/images/stock-4.jpg",
-    alt: "Before and after power washing pavers",
+    src: "/images/gallery-powerwash-2.jpg",
+    alt: "Freshly power washed surface in Central Ohio",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   // Service 5: Drywall Repair
   "service-5-detail-1": {
-    src: "/images/stock-5.jpg",
-    alt: "Drywall mudding and finishing",
+    src: "/images/interior-painting-collage-fullhouse.jpg",
+    alt: "Interior drywall and paint refresh across a Central Ohio home",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   "service-5-detail-2": {
     src: "/images/interior-painting-hallway.jpg",
@@ -274,23 +274,23 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
   },
   // Service 6: Floor Epoxy
   "service-6-detail-1": {
-    src: "/images/stock-6.jpg",
-    alt: "Epoxy floor in residential garage",
+    src: "/images/stock-7.jpg",
+    alt: "Industrial-grade finish detail — built for garages",
     width: 800,
     height: 600,
   },
   "service-6-detail-2": {
-    src: "/images/stock-6.jpg",
-    alt: "Durable epoxy coating detail",
+    src: "/images/house-painting-ranch.jpg",
+    alt: "Ranch-style home with epoxy-ready garage in Ohio",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   // Service 7: Aluminum Painting
   "service-7-detail-1": {
-    src: "/images/stock-7.jpg",
-    alt: "Aluminum siding close-up after painting",
+    src: "/images/house-painting-ranch.jpg",
+    alt: "Ranch home with aluminum siding painted in Central Ohio",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   "service-7-detail-2": {
     src: "/images/exterior-painting-blue-porch.jpg",
@@ -300,36 +300,36 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
   },
   // Service 8: Masonry Painting
   "service-8-detail-1": {
-    src: "/images/exterior-painting-brick-historic.jpg",
-    alt: "Historic brick home masonry work",
+    src: "/images/gallery-exterior-1.jpg",
+    alt: "Masonry painting project in Central Ohio neighborhood",
     width: 800,
     height: 1067,
   },
   "service-8-detail-2": {
-    src: "/images/stock-8.jpg",
-    alt: "Masonry patio and brick painting",
+    src: "/images/exterior-painting-collage-winter.jpg",
+    alt: "Seasonal masonry exterior before and after in Ohio",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   // Service 9: Wood Staining
   "service-9-detail-1": {
-    src: "/images/wood-staining-garage.jpg",
-    alt: "Wood-framed garage with fresh stain",
+    src: "/images/gallery-exterior-10.jpg",
+    alt: "Stained wood exterior detail in Central Ohio",
     width: 800,
     height: 1067,
   },
   "service-9-detail-2": {
-    src: "/images/stock-9.jpg",
-    alt: "Applying wood stain to deck surface",
+    src: "/images/fence-painting-gray.jpg",
+    alt: "Outdoor wood structure stained in Ohio",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   // Service 10: Vinyl Siding Painting
   "service-10-detail-1": {
-    src: "/images/stock-10.jpg",
-    alt: "Blue vinyl siding on exterior home",
+    src: "/images/gallery-exterior-2.jpg",
+    alt: "Vinyl siding exterior in Fairfield County, OH",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   "service-10-detail-2": {
     src: "/images/house-painting-ranch.jpg",
@@ -339,10 +339,10 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
   },
   // Service 11: Deck Staining
   "service-11-detail-1": {
-    src: "/images/stock-11.jpg",
-    alt: "Stained deck with outdoor seating",
+    src: "/images/gallery-exterior-6.jpg",
+    alt: "Recently stained deck at a Fairfield County home",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   "service-11-detail-2": {
     src: "/images/stock-9.jpg",
@@ -352,21 +352,21 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
   },
   // Service 12: Fence Painting
   "service-12-detail-1": {
-    src: "/images/fence-painting-gray.jpg",
-    alt: "Gray painted fence along property",
+    src: "/images/gallery-exterior-7.jpg",
+    alt: "Fence along a Central Ohio property line",
     width: 800,
     height: 1067,
   },
   "service-12-detail-2": {
-    src: "/images/stock-12.jpg",
-    alt: "White picket fence freshly painted",
+    src: "/images/gallery-exterior-8.jpg",
+    alt: "Freshly painted wood fence in Fairfield County, OH",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   // Service 13: House Painting
   "service-13-detail-1": {
-    src: "/images/house-painting-twostory.jpg",
-    alt: "Two-story home painting project",
+    src: "/images/gallery-exterior-11.jpg",
+    alt: "Whole-house painting project in Central Ohio",
     width: 800,
     height: 1067,
   },

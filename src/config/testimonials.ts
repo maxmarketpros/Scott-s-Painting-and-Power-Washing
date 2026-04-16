@@ -2,27 +2,29 @@ import type { TestimonialItem } from "@/types";
 
 export const testimonials: TestimonialItem[] = [
   {
-    name: "Mike & Sarah T.",
-    title: "Homeowners in Pickerington",
+    name: "Ken Hogan",
+    title: "Local Guide · 13 reviews · 3 weeks ago",
     quote:
-      "Scott and his crew did an amazing job on our exterior painting. They took the time to properly prep every surface, and the finished result looks like a brand-new home. The whole project was completed on schedule and the cleanup was spotless. We couldn't be happier.",
+      "Most home services give you a time window and hope for the best, but Scott and his crew gave an exact time and showed up on time every time. Their pricing was competitive, and the work was excellent. I highly recommend Scott and his team for painting and power washing projects.",
     rating: 5,
-    image: "",
+    image: "/images/avatar-ken.png",
   },
   {
-    name: "Jennifer R.",
-    title: "Homeowner in Columbus",
+    name: "Michelle Marko",
+    title: "9 reviews · Interior Painting · 20 weeks ago",
     quote:
-      "We hired Scott's Painting for our entire interior — living room, bedrooms, and hallways. The attention to detail was outstanding. Clean lines, no drips, and they even helped us pick the perfect colors. Scott was personally on-site every day checking the work. Highly recommend.",
+      "Scott and his crew did an excellent job on our painting project this week. He was prompt and flexible to come over to give a quote, kept his promised start date, and finished a day earlier than planned. His price was also highly competitive. I would highly recommend Scott's Painting.",
     rating: 5,
-    image: "",
+    image: "/images/avatar-michelle.png",
   },
   {
-    name: "David K.",
-    title: "Homeowner in Lancaster",
+    name: "Paul Stankus",
+    title: "1 review · Interior Painting · 26 weeks ago",
     quote:
-      "I had my driveway, patio, and vinyl siding power washed and the difference is night and day. Years of grime and mildew gone in one day. Scott's team was professional, on time, and the pricing was exactly what they quoted — no surprises. Will definitely use them again.",
+      "Scott's Painting where very helpful, polite and professional. Had them paint my walls and ceiling for all of the first floor of my 2 story home. They were prompt, very efficient and did excellent work. They offered a great price along with the quality of work. I will be recommending Scott's Painting to others.",
     rating: 5,
-    image: "",
+    image: "/images/avatar-paul.png",
   },
 ];
+
+export const googleReviewsUrl = "https://share.google/DMwJFRcGF2rMb1igN";

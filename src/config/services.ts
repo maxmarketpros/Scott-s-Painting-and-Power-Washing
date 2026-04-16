@@ -12,8 +12,6 @@ export const services: ServiceConfig[] = [
     icon: "PaintBucket",
     cardImage: "service-1",
     heroImage: "service-1-hero",
-    h1Override:
-      "Experience Exceptional Interior Painting Services That Elevate Your Home's Beauty and Value",
     description: [
       "Scott's Painting delivers interior painting services throughout Fairfield County, OH that go beyond a simple coat of paint. Our process begins with thorough surface preparation, including sanding, patching nail holes, caulking trim joints, and priming bare surfaces so the finish coat bonds properly and lasts for years. We use premium zero-VOC and low-VOC paints from Sherwin-Williams and Benjamin Moore, giving you a healthier indoor environment with rich, lasting color. Whether you want a single accent wall or a full-home repaint, our crew tapes clean lines, protects your flooring and furnishings, and works room by room to minimize disruption to your daily routine.",
       "Color selection can feel overwhelming, so we offer complimentary color consultations to help you choose palettes that complement your architecture, lighting, and furnishings. From matte and eggshell in living areas to semi-gloss on trim and doors, we match the right sheen to each surface for both aesthetics and durability. Central Ohio homeowners trust us for smooth roller finishes on walls, crisp brush work on crown molding, and spray-applied finishes on ceilings when a flawless look matters most. Every project wraps up with a detailed walkthrough so you can inspect every edge, corner, and cut-in before we consider the job complete.",
