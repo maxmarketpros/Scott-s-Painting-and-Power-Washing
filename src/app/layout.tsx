@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -90,11 +89,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} h-full`}>
       <head>
-        {/* Preconnect to external origins to speed up first load */}
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://api.leadconnectorhq.com" />
-        <link rel="preconnect" href="https://link.msgsndr.com" />
-        <link rel="dns-prefetch" href="https://www.google.com" />
+        {/*
+          Minimal preconnects. next/font already handles fonts.gstatic.com, and
+          the LeadConnector form embed (api.leadconnectorhq.com / link.msgsndr.com)
+          now manages its own preconnects from inside FormEmbed so non-contact
+          pages don't pay for them.
+        */}
       </head>
       <body className="flex min-h-full flex-col">
         {/* Skip-link for keyboard users */}
@@ -114,11 +114,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(generateLocalBusinessSchema()),
           }}
-        />
-        <Script
-          id="ghl-form-embed"
-          src="https://link.msgsndr.com/js/form_embed.js"
-          strategy="lazyOnload"
         />
       </body>
     </html>

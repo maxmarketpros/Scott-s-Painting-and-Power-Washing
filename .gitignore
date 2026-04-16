@@ -5,6 +5,9 @@ node_modules/
 .next/
 out/
 
+# generated image variants (built by scripts/optimize-images.mjs)
+public/images/_opt/
+
 # misc
 *.tsbuildinfo
 next-env.d.ts

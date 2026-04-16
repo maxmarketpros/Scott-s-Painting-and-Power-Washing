@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { FileText } from "lucide-react";
 import { businessConfig } from "@/config/business";
 import { cn } from "@/lib/utils";
@@ -10,6 +11,11 @@ interface FormEmbedProps {
 // Reusable form embed component.
 // Renders the client's iframe form if configured in business.ts,
 // otherwise shows a styled placeholder indicating where the form will go.
+//
+// The iframe is `loading="lazy"` so its third-party payload (Facebook Pixel,
+// reCAPTCHA, libphonenumber) is deferred until the user scrolls near the form.
+// The form_embed.js script is only injected on pages that actually render this
+// component, instead of on every page.
 
 export function FormEmbed({ className, height }: FormEmbedProps) {
   const embedUrl = businessConfig.formEmbedUrl;
@@ -17,17 +23,25 @@ export function FormEmbed({ className, height }: FormEmbedProps) {
 
   if (embedUrl) {
     return (
-      <iframe
-        src={embedUrl}
-        title="Request a quote"
-        className={cn("w-full border-0 rounded-xl", className)}
-        style={{ height: embedHeight }}
-        data-layout="{'id':'INLINE'}"
-        data-trigger-type="alwaysShow"
-        data-activation-type="alwaysActivated"
-        data-deactivation-type="neverDeactivate"
-        data-form-name="WebSite Form Template"
-      />
+      <>
+        <iframe
+          src={embedUrl}
+          title="Request a quote"
+          loading="lazy"
+          className={cn("w-full border-0 rounded-xl", className)}
+          style={{ height: embedHeight }}
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-activation-type="alwaysActivated"
+          data-deactivation-type="neverDeactivate"
+          data-form-name="WebSite Form Template"
+        />
+        <Script
+          id="ghl-form-embed"
+          src="https://link.msgsndr.com/js/form_embed.js"
+          strategy="lazyOnload"
+        />
+      </>
     );
   }
 
