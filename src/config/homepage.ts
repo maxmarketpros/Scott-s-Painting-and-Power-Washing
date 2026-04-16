@@ -1,32 +1,33 @@
 export const homepageContent = {
   hero: {
+    // H1 intentionally unchanged.
     heading: "Painting & Powerwashing in Fairfield County, OH",
     subtitle:
-      "Trusted by 14,000+ homeowners across Central Ohio. Over 25 years of expert painting and power washing with transparent pricing and owner-led accountability.",
+      "Trusted by 14,000+ homeowners across Pickerington, Columbus, and Central Ohio. Over 25 years of expert interior painting, exterior painting, and power washing — backed by transparent pricing and owner-led accountability.",
     primaryCta: { label: "Get a Free Quote", href: "/contact-us" },
     secondaryCta: { label: "Call (614) 809-9730", href: "tel:+16148099730" },
   },
   aboutPreview: {
-    eyebrow: "About Us",
+    eyebrow: "About Scott's Painting",
     heading:
-      "Your Trusted Painting & Power Washing Partner in Fairfield County",
+      "Fairfield County's Trusted House Painters & Power Washing Contractors",
     paragraph:
-      "Scott's Painting and Power Washing has served Fairfield County and Central Ohio for over 25 years. As an owner-led company, Scott Hysell is personally involved in every project — ensuring quality craftsmanship, transparent pricing, and the kind of accountability that only comes when the owner's name is on the line.",
+      "Scott's Painting and Power Washing has been the go-to house painter across Fairfield County and Central Ohio for over 25 years. Based in Pickerington, we paint and pressure wash homes throughout Columbus, Lancaster, Pataskala, Newark, and the surrounding Franklin and Licking County communities. As an owner-led painting company, Scott Hysell is personally involved in every project — ensuring quality craftsmanship, transparent pricing, and the accountability that only comes when the owner's name is on the line.",
     bullets: [
       {
-        title: "Transparent Pricing",
+        title: "Transparent Painting Estimates",
         description:
-          "Detailed, written estimates with no hidden fees. You know exactly what you're paying before we start.",
+          "Detailed, written quotes for interior painting, exterior painting, and power washing — no hidden fees, ever.",
       },
       {
         title: "Owner-Led Accountability",
         description:
-          "Scott Hysell personally oversees every project. Direct communication from start to finish.",
+          "Scott Hysell personally oversees every Central Ohio job site — direct communication from first call to final walkthrough.",
       },
       {
-        title: "Local Expertise",
+        title: "Pickerington-Based, Locally Expert",
         description:
-          "25+ years serving Central Ohio means we understand local homes, weather conditions, and what works best in this region.",
+          "25+ years painting Central Ohio homes means we know the climate, the siding, and the exterior paint systems that actually hold up here.",
       },
     ],
     image: "about-preview",
@@ -34,16 +35,17 @@ export const homepageContent = {
   },
   services: {
     eyebrow: "Our Services",
-    heading: "Our Professional Services",
+    heading:
+      "Professional Painting & Power Washing Services in Central Ohio",
     subtitle:
-      "Comprehensive painting and power washing solutions for residential and commercial properties across Central Ohio.",
+      "Comprehensive interior painting, exterior painting, cabinet painting, and power washing for homes and businesses across Fairfield County, Franklin County, and Licking County.",
   },
   standards: {
     eyebrow: "Our Approach",
-    heading: "The Quality Standard Behind Every Project",
+    heading: "The Quality Standard Behind Every Central Ohio Paint Job",
     paragraphs: [
-      "Every painting and power washing project is held to a relentless standard of quality from the first brushstroke to the final walkthrough. This isn't just a promise — it's the daily discipline that has earned us 17,000+ completed projects and 14,000+ happy customers.",
-      "The quality of a paint job is determined long before the top coat goes on. It lives in the thoroughness of surface preparation, the precision of masking and edging, and the owner-led oversight that ensures every detail meets our exacting standards.",
+      "Every painting and power washing project in Fairfield County and the greater Columbus area is held to a relentless standard of quality from the first brushstroke to the final walkthrough. This isn't just a promise — it's the daily discipline that has earned us 17,000+ completed projects and 14,000+ happy customers across Central Ohio.",
+      "The quality of a paint job is determined long before the top coat goes on. It lives in thorough surface prep, precise masking and edging, and the owner-led oversight that makes sure every Pickerington, Columbus, and Lancaster home meets our exacting standards.",
     ],
     checklist: [
       "Thorough surface prep — sanding, scraping, and priming",
@@ -60,25 +62,25 @@ export const homepageContent = {
   },
   process: {
     eyebrow: "Our Process",
-    heading: "How We Work",
+    heading: "How We Handle Your Painting Project in Fairfield County",
     subtitle:
-      "A proven four-step process refined over 25 years to deliver exceptional painting and power washing results, every time.",
+      "A proven four-step process refined over 25 years of painting and power washing homes across Central Ohio — designed to deliver exceptional interior painting, exterior painting, and power washing results, every time.",
   },
   testimonials: {
     eyebrow: "Client Reviews",
-    heading: "What Our Customers Say",
+    heading: "What Central Ohio Homeowners Say About Our Painting Work",
     subtitle:
-      "Don't just take our word for it. Here's what homeowners across Central Ohio have to say about working with us.",
+      "Don't just take our word for it. Here's what homeowners from Pickerington to Columbus, Lancaster, and across Fairfield County have to say about working with Scott's Painting and Power Washing.",
   },
   faq: {
     eyebrow: "FAQ",
-    heading: "Frequently Asked Questions",
+    heading: "Central Ohio Painting & Power Washing FAQs",
     subtitle:
-      "Answers to common questions about our painting and power washing services, process, and what to expect.",
+      "Answers to common questions about our interior painting, exterior painting, cabinet painting, and power washing services across Fairfield County, Franklin County, and Licking County.",
   },
   cta: {
-    heading: "Ready to Transform Your Property?",
-    text: "Schedule a free estimate today and discover why 14,000+ homeowners across Central Ohio trust Scott's Painting and Power Washing with their most important projects.",
+    heading: "Ready to Paint or Power Wash Your Central Ohio Home?",
+    text: "Schedule a free estimate today and discover why 14,000+ homeowners across Columbus, Pickerington, and the rest of Central Ohio trust Scott's Painting and Power Washing with their interior painting, exterior painting, and power washing projects.",
     primaryCta: { label: "Get a Free Quote", href: "/contact-us" },
     secondaryCta: { label: "Call (614) 809-9730", href: "tel:+16148099730" },
   },
