@@ -12,10 +12,12 @@ interface FormEmbedProps {
 // Renders the client's iframe form if configured in business.ts,
 // otherwise shows a styled placeholder indicating where the form will go.
 //
-// The iframe is `loading="lazy"` so its third-party payload (Facebook Pixel,
-// reCAPTCHA, libphonenumber) is deferred until the user scrolls near the form.
-// The form_embed.js script is only injected on pages that actually render this
-// component, instead of on every page.
+// The form_embed.js script is only injected on pages that actually render
+// this component (instead of on every page) and uses `afterInteractive` —
+// lazyOnload and loading="lazy" caused a race where the iframe's initial
+// postMessage handshake fired before the script was listening, leaving the
+// form blank. afterInteractive ensures the listener is attached before the
+// iframe finishes loading.
 
 export function FormEmbed({ className, height }: FormEmbedProps) {
   const embedUrl = businessConfig.formEmbedUrl;
@@ -27,7 +29,6 @@ export function FormEmbed({ className, height }: FormEmbedProps) {
         <iframe
           src={embedUrl}
           title="Request a quote"
-          loading="lazy"
           className={cn("w-full border-0 rounded-xl", className)}
           style={{ height: embedHeight }}
           data-layout="{'id':'INLINE'}"
@@ -39,7 +40,7 @@ export function FormEmbed({ className, height }: FormEmbedProps) {
         <Script
           id="ghl-form-embed"
           src="https://link.msgsndr.com/js/form_embed.js"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
       </>
     );
