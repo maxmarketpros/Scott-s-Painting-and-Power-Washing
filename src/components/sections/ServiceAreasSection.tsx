@@ -64,7 +64,7 @@ export function ServiceAreasSection({ className }: ServiceAreasSectionProps) {
             <p className="mt-6 text-sm text-white/50">
               Don&apos;t see your area?{" "}
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="font-medium text-primary-200 underline transition-colors hover:text-white"
               >
                 Contact us

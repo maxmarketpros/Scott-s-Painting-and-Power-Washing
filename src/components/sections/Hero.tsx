@@ -55,12 +55,12 @@ export function Hero() {
         </div>
 
         {/* Stats Row */}
-        <div className="mx-auto mt-16 flex max-w-lg items-center justify-center gap-8 md:gap-12">
+        <div className="mx-auto mt-16 flex max-w-lg flex-wrap items-center justify-center gap-x-6 gap-y-6 md:gap-x-10">
           {heroStats.map((stat, i) => (
-            <div key={i} className="flex items-center gap-8">
+            <div key={i} className="flex items-center gap-x-6 md:gap-x-10">
               <StatItem value={stat.value} label={stat.label} light />
               {i < heroStats.length - 1 && (
-                <div className="h-10 w-px bg-white/20" />
+                <div className="hidden h-10 w-px bg-white/20 sm:block" />
               )}
             </div>
           ))}

@@ -2,15 +2,15 @@ export const aboutContent = {
   hero: {
     heading: "About Us",
     subtitle:
-      "Discover the story, values, and experience behind our commitment to quality.",
+      "Over 25 years of trusted painting and power washing services in Central Ohio.",
   },
   story: {
     eyebrow: "Our Story",
-    heading: "Built on Experience. Driven by Standards.",
+    heading: "25+ Years of Quality Craftsmanship in Central Ohio",
     paragraphs: [
-      "We believe the best service professionals are the ones who have actually done the work themselves. Our company wasn't built in an office — it was forged through years of hands-on experience in the field.",
-      "Our foundational roots go deep into the core of our craft. Before becoming a leading service provider in the region, we mastered the fundamental skills that separate good work from great work.",
-      "This hands-on background gives us a unique advantage. When our team manages a project, we aren't just looking at spreadsheets. We understand the quality required because we've done the work ourselves. This translates to higher standards, better problem-solving, and a superior finished product for our clients.",
+      "Scott Hysell founded Scott's Painting and Power Washing over 25 years ago with a simple mission: deliver honest, high-quality work at a fair price. What started as a one-man operation built on hard work and word-of-mouth referrals has grown into one of Central Ohio's most trusted painting and power washing companies.",
+      "From the very beginning, Scott built this business from the ground up through hands-on work. He learned every aspect of the trade — from surface preparation and paint selection to power washing techniques and customer communication. That firsthand expertise is what sets Scott's Painting apart. When you hire us, you're getting a team led by someone who has personally completed thousands of projects and understands what quality craftsmanship truly looks like.",
+      "Today, Scott's Painting and Power Washing proudly serves Fairfield County and the surrounding Central Ohio region, including Columbus, Grove City, Pataskala, Newark, and Lancaster. With over 17,000 projects completed and 14,000 happy customers, our commitment to quality and customer satisfaction remains the foundation of everything we do.",
     ],
     image: "about-story",
   },
@@ -19,33 +19,33 @@ export const aboutContent = {
     heading: "What We Stand For",
     items: [
       {
-        title: "Integrity First",
+        title: "Quality First",
         description:
-          "We do what we say we'll do, every time. Our reputation is built on keeping promises.",
+          "We use premium paints and materials, properly prepare every surface, and never cut corners. The finished product speaks for itself.",
       },
       {
-        title: "Quality Without Compromise",
+        title: "Transparent Pricing",
         description:
-          "We never cut corners. Every project receives our full attention and highest standards.",
+          "You get a detailed, written estimate before we start. No hidden fees, no surprise charges — just honest pricing you can count on.",
       },
       {
-        title: "Transparent Communication",
+        title: "Clean & Professional",
         description:
-          "You'll always know where your project stands. No guessing, no chasing updates.",
+          "We protect your furniture and landscaping, keep the work area clean daily, and leave your property looking better than we found it.",
       },
       {
-        title: "Community Commitment",
+        title: "Customer Satisfaction",
         description:
-          "We live and work in this community. Your success is our success.",
+          "We don't consider a job done until you're completely happy. Your satisfaction is what has earned us 14,000+ loyal customers over 25 years.",
       },
     ],
   },
   team: {
     eyebrow: "Owner-Led",
-    heading: "Personally Invested in Every Project",
+    heading: "Scott Hysell — Personally Invested in Every Project",
     paragraphs: [
-      "Every project we take on receives direct owner involvement. This isn't a large corporation where your project gets passed between departments — you work directly with the person whose name is on the business.",
-      "This level of personal investment means faster decisions, higher accountability, and a genuine commitment to your satisfaction that you simply can't get from larger operations.",
+      "Every project we take on receives direct involvement from Scott himself. This isn't a large franchise where your project gets passed between strangers — you work directly with the owner, the person whose name and reputation are on the line with every job.",
+      "This level of personal investment means faster decisions, higher accountability, and a genuine commitment to your satisfaction that you simply can't get from larger operations. When Scott says the job isn't done until you're happy, he means it.",
     ],
     image: "about-team",
   },

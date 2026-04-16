@@ -1,11 +1,11 @@
 {
-  "name": "Premier Services",
-  "short_name": "Premier",
-  "description": "Professional service company delivering premium quality work.",
+  "name": "Scott's Painting and Power Washing",
+  "short_name": "Scott's Painting",
+  "description": "Scott's Painting and Power Washing has delivered expert painting and power washing services across Central Ohio for over 25 years. Serving Fairfield County, Franklin County, and Licking County with 17,000+ projects completed.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#3b82f6",
+  "theme_color": "#1e9fd8",
   "icons": [
     {
       "src": "/icon-192.png",

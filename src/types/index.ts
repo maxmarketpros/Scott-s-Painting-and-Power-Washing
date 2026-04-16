@@ -26,6 +26,7 @@ export interface ServiceConfig {
   faqKeys: string[];
   ctaHeading: string;
   ctaText: string;
+  h1Override?: string;
   // SEO-focused sub-topic sections for service pages
   // These provide keyword-rich content with icon cards
   topicSectionA: {

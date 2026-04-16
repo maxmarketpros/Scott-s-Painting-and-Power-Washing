@@ -71,12 +71,12 @@ export default function HomePage() {
         </div>
         <div className="flex flex-wrap gap-4">
           <Button
-            href="/contact"
+            href="/contact-us"
             icon={<ArrowRight className="h-5 w-5" />}
           >
             Get a Quote
           </Button>
-          <Button href="/about" variant="outline">
+          <Button href="/about-us" variant="outline">
             Learn More
           </Button>
         </div>
@@ -115,8 +115,8 @@ export default function HomePage() {
         heading={content.process.heading}
         subtitle={content.process.subtitle}
         bgColor="white"
-        primaryCta={{ label: "Get a Quote", href: "/contact" }}
-        secondaryCta={{ label: "Call (555) 123-4567", href: "tel:+15551234567" }}
+        primaryCta={{ label: "Get a Quote", href: "/contact-us" }}
+        secondaryCta={{ label: "Call (614) 809-9730", href: "tel:+16148099730" }}
       />
 
       {/* Testimonials */}

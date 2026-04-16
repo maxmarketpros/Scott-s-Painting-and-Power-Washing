@@ -1,13 +1,13 @@
 export const siteConfig = {
-  name: "Premier Services",
-  tagline: "Quality Craftsmanship, Trusted Results",
+  name: "Scott's Painting and Power Washing",
+  tagline: "Professional Painting & Power Washing in Central Ohio",
   description:
-    "Professional service company delivering premium quality work with transparent pricing, owner-led accountability, and over 15 years of trusted experience.",
-  url: "https://example.com",
-  ogImage: "/images/og-image.jpg",
+    "Scott's Painting and Power Washing has delivered expert painting and power washing services across Central Ohio for over 25 years. Serving Fairfield County, Franklin County, and Licking County with 17,000+ projects completed.",
+  url: "https://scottspaintingpw.com",
+  ogImage: "/images/stock-13.jpg",
   social: {
-    facebook: "https://facebook.com/",
-    instagram: "https://instagram.com/",
-    google: "https://g.page/",
+    facebook: "https://facebook.com/scottspaintingandpowerwashing",
+    instagram: "",
+    google: "",
   },
 } as const;

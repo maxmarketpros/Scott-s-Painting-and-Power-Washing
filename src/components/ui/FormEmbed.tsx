@@ -22,7 +22,11 @@ export function FormEmbed({ className, height }: FormEmbedProps) {
         title="Request a quote"
         className={cn("w-full border-0 rounded-xl", className)}
         style={{ height: embedHeight }}
-        loading="lazy"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-activation-type="alwaysActivated"
+        data-deactivation-type="neverDeactivate"
+        data-form-name="WebSite Form Template"
       />
     );
   }

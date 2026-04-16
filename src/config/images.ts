@@ -2,143 +2,407 @@ import type { ImageSlotConfig } from "@/types";
 
 // ===== IMAGE MANIFEST =====
 // Every image on the site has a named slot.
-// To assign real images: replace the src path and update alt text.
 // focalPoint: { x: 0-1, y: 0-1 } controls object-position (default: center/center)
 //
-// FUTURE WORKFLOW:
-// 1. Add client images to /public/images/
-// 2. Update this manifest to point each slot to the right file
-// 3. Claude can analyze images and recommend slot assignments based on composition
+// Photo categories:
+//   stock-*.jpg          — landscape 1920x1080 stock photos
+//   *-collage*.jpg       — portrait 1920x3413 collages (avoid in hero/card slots)
+//   other client photos  — portrait 1920x2560
 
 export const imageManifest: Record<string, ImageSlotConfig> = {
   // ===== HOMEPAGE =====
   "hero-home": {
-    src: "/images/hero-home.jpg",
-    alt: "Professional service work showcasing quality craftsmanship",
+    src: "/images/stock-13.jpg",
+    alt: "Modern home exterior at dusk — Scott's Painting and Power Washing",
     width: 1920,
     height: 1080,
     focalPoint: { x: 0.5, y: 0.4 },
   },
   "about-preview": {
-    src: "/images/about-preview.jpg",
-    alt: "Quality workmanship on a recent project",
-    width: 800,
-    height: 1000,
-    focalPoint: { x: 0.5, y: 0.3 },
+    src: "/images/house-painting-twostory.jpg",
+    alt: "Two-story home exterior painting in Central Ohio",
+    width: 1920,
+    height: 2560,
+    focalPoint: { x: 0.5, y: 0.5 },
   },
   "standards-feature": {
-    src: "/images/standards-feature.jpg",
-    alt: "Active project demonstrating our high standards",
+    src: "/images/power-washing-action.jpg",
+    alt: "Scott's Painting crew member power washing in branded shirt",
     width: 800,
-    height: 1000,
+    height: 1067,
     focalPoint: { x: 0.5, y: 0.4 },
   },
 
   // ===== SERVICE CARDS =====
   "service-1": {
-    src: "/images/service-1.jpg",
-    alt: "Service one project example",
+    src: "/images/interior-painting-room-tealrug.jpg",
+    alt: "Freshly painted interior room in Fairfield County home",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   "service-2": {
-    src: "/images/service-2.jpg",
-    alt: "Service two project example",
+    src: "/images/exterior-painting-blue-porch.jpg",
+    alt: "Exterior painting with blue accent on porch in Central Ohio",
     width: 800,
-    height: 600,
+    height: 1067,
   },
   "service-3": {
-    src: "/images/service-3.jpg",
-    alt: "Service three project example",
+    src: "/images/stock-3.jpg",
+    alt: "Professional cabinet painting with green finish",
     width: 800,
     height: 600,
+  },
+  "service-4": {
+    src: "/images/power-washing-action.jpg",
+    alt: "Scott's Painting crew power washing vinyl siding",
+    width: 800,
+    height: 1067,
+  },
+  "service-5": {
+    src: "/images/stock-5.jpg",
+    alt: "Professional drywall repair and finishing",
+    width: 800,
+    height: 600,
+  },
+  "service-6": {
+    src: "/images/stock-6.jpg",
+    alt: "Durable epoxy floor coating in residential garage",
+    width: 800,
+    height: 600,
+  },
+  "service-7": {
+    src: "/images/stock-7.jpg",
+    alt: "Aluminum siding painting and restoration",
+    width: 800,
+    height: 600,
+  },
+  "service-8": {
+    src: "/images/exterior-painting-brick-historic.jpg",
+    alt: "Masonry painting on historic brick home in Central Ohio",
+    width: 800,
+    height: 1067,
+  },
+  "service-9": {
+    src: "/images/wood-staining-garage.jpg",
+    alt: "Wood staining on garage exterior in Fairfield County",
+    width: 800,
+    height: 1067,
+  },
+  "service-10": {
+    src: "/images/stock-10.jpg",
+    alt: "Vinyl siding painting on residential home",
+    width: 800,
+    height: 600,
+  },
+  "service-11": {
+    src: "/images/stock-11.jpg",
+    alt: "Stained deck with outdoor furniture",
+    width: 800,
+    height: 600,
+  },
+  "service-12": {
+    src: "/images/fence-painting-gray.jpg",
+    alt: "Painted fence and building exterior in Ohio",
+    width: 800,
+    height: 1067,
+  },
+  "service-13": {
+    src: "/images/house-painting-twostory.jpg",
+    alt: "Complete house painting on two-story home",
+    width: 800,
+    height: 1067,
   },
 
-  // ===== SERVICE DETAIL PAGES =====
+  // ===== SERVICE HERO IMAGES =====
   "service-1-hero": {
-    src: "/images/service-1-hero.jpg",
-    alt: "Service one hero image",
+    src: "/images/stock-1.jpg",
+    alt: "Interior painting services in Fairfield County, OH",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
-  },
-  "service-1-detail-1": {
-    src: "/images/service-1-detail-1.jpg",
-    alt: "Service one detailed work example",
-    width: 800,
-    height: 600,
-  },
-  "service-1-detail-2": {
-    src: "/images/service-1-detail-2.jpg",
-    alt: "Service one completed project",
-    width: 800,
-    height: 600,
   },
   "service-2-hero": {
-    src: "/images/service-2-hero.jpg",
-    alt: "Service two hero image",
+    src: "/images/stock-2.jpg",
+    alt: "Exterior painting services in Central Ohio",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
-  },
-  "service-2-detail-1": {
-    src: "/images/service-2-detail-1.jpg",
-    alt: "Service two detailed work example",
-    width: 800,
-    height: 600,
-  },
-  "service-2-detail-2": {
-    src: "/images/service-2-detail-2.jpg",
-    alt: "Service two completed project",
-    width: 800,
-    height: 600,
   },
   "service-3-hero": {
-    src: "/images/service-3-hero.jpg",
-    alt: "Service three hero image",
+    src: "/images/stock-3.jpg",
+    alt: "Cabinet painting services in Fairfield County",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
   },
+  "service-4-hero": {
+    src: "/images/stock-4.jpg",
+    alt: "Power washing services in Central Ohio",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+  "service-5-hero": {
+    src: "/images/stock-5.jpg",
+    alt: "Drywall repair services in Fairfield County",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+  "service-6-hero": {
+    src: "/images/stock-6.jpg",
+    alt: "Floor epoxy coating services in Central Ohio",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+  "service-7-hero": {
+    src: "/images/stock-7.jpg",
+    alt: "Aluminum painting services in Fairfield County",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+  "service-8-hero": {
+    src: "/images/stock-8.jpg",
+    alt: "Masonry painting services in Central Ohio",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+  "service-9-hero": {
+    src: "/images/stock-9.jpg",
+    alt: "Wood staining services in Fairfield County",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+  "service-10-hero": {
+    src: "/images/stock-10.jpg",
+    alt: "Vinyl siding painting in Central Ohio",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+  "service-11-hero": {
+    src: "/images/stock-11.jpg",
+    alt: "Deck staining services in Fairfield County",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+  "service-12-hero": {
+    src: "/images/stock-12.jpg",
+    alt: "Fence painting services in Central Ohio",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+  "service-13-hero": {
+    src: "/images/stock-13.jpg",
+    alt: "House painting services in Fairfield County",
+    width: 1920,
+    height: 600,
+    focalPoint: { x: 0.5, y: 0.4 },
+  },
+
+  // ===== SERVICE DETAIL IMAGES =====
+  // Service 1: Interior Painting
+  "service-1-detail-1": {
+    src: "/images/interior-painting-hallway.jpg",
+    alt: "Interior hallway freshly painted in white",
+    width: 800,
+    height: 1067,
+  },
+  "service-1-detail-2": {
+    src: "/images/interior-painting-bathroom.jpg",
+    alt: "Bathroom with fresh blue-gray paint",
+    width: 800,
+    height: 1067,
+  },
+  // Service 2: Exterior Painting
+  "service-2-detail-1": {
+    src: "/images/exterior-painting-black-garage.jpg",
+    alt: "Garage exterior painted black",
+    width: 800,
+    height: 1067,
+  },
+  "service-2-detail-2": {
+    src: "/images/house-painting-ranch.jpg",
+    alt: "Ranch-style home exterior painting",
+    width: 800,
+    height: 1067,
+  },
+  // Service 3: Cabinet Painting
   "service-3-detail-1": {
-    src: "/images/service-3-detail-1.jpg",
-    alt: "Service three detailed work example",
+    src: "/images/stock-3.jpg",
+    alt: "Kitchen cabinets painted green with hardware",
     width: 800,
     height: 600,
   },
   "service-3-detail-2": {
-    src: "/images/service-3-detail-2.jpg",
-    alt: "Service three completed project",
+    src: "/images/stock-1.jpg",
+    alt: "Kitchen interior after cabinet refinishing",
     width: 800,
     height: 600,
+  },
+  // Service 4: Power Washing
+  "service-4-detail-1": {
+    src: "/images/power-washing-action.jpg",
+    alt: "Power washing vinyl siding",
+    width: 800,
+    height: 1067,
+  },
+  "service-4-detail-2": {
+    src: "/images/stock-4.jpg",
+    alt: "Before and after power washing pavers",
+    width: 800,
+    height: 600,
+  },
+  // Service 5: Drywall Repair
+  "service-5-detail-1": {
+    src: "/images/stock-5.jpg",
+    alt: "Drywall mudding and finishing",
+    width: 800,
+    height: 600,
+  },
+  "service-5-detail-2": {
+    src: "/images/interior-painting-hallway.jpg",
+    alt: "Smooth walls after drywall repair",
+    width: 800,
+    height: 1067,
+  },
+  // Service 6: Floor Epoxy
+  "service-6-detail-1": {
+    src: "/images/stock-6.jpg",
+    alt: "Epoxy floor in residential garage",
+    width: 800,
+    height: 600,
+  },
+  "service-6-detail-2": {
+    src: "/images/stock-6.jpg",
+    alt: "Durable epoxy coating detail",
+    width: 800,
+    height: 600,
+  },
+  // Service 7: Aluminum Painting
+  "service-7-detail-1": {
+    src: "/images/stock-7.jpg",
+    alt: "Aluminum siding close-up after painting",
+    width: 800,
+    height: 600,
+  },
+  "service-7-detail-2": {
+    src: "/images/exterior-painting-blue-porch.jpg",
+    alt: "Painted aluminum trim on home exterior",
+    width: 800,
+    height: 1067,
+  },
+  // Service 8: Masonry Painting
+  "service-8-detail-1": {
+    src: "/images/exterior-painting-brick-historic.jpg",
+    alt: "Historic brick home masonry work",
+    width: 800,
+    height: 1067,
+  },
+  "service-8-detail-2": {
+    src: "/images/stock-8.jpg",
+    alt: "Masonry patio and brick painting",
+    width: 800,
+    height: 600,
+  },
+  // Service 9: Wood Staining
+  "service-9-detail-1": {
+    src: "/images/wood-staining-garage.jpg",
+    alt: "Wood-framed garage with fresh stain",
+    width: 800,
+    height: 1067,
+  },
+  "service-9-detail-2": {
+    src: "/images/stock-9.jpg",
+    alt: "Applying wood stain to deck surface",
+    width: 800,
+    height: 600,
+  },
+  // Service 10: Vinyl Siding Painting
+  "service-10-detail-1": {
+    src: "/images/stock-10.jpg",
+    alt: "Blue vinyl siding on exterior home",
+    width: 800,
+    height: 600,
+  },
+  "service-10-detail-2": {
+    src: "/images/house-painting-ranch.jpg",
+    alt: "Home vinyl siding after painting",
+    width: 800,
+    height: 1067,
+  },
+  // Service 11: Deck Staining
+  "service-11-detail-1": {
+    src: "/images/stock-11.jpg",
+    alt: "Stained deck with outdoor seating",
+    width: 800,
+    height: 600,
+  },
+  "service-11-detail-2": {
+    src: "/images/stock-9.jpg",
+    alt: "Deck staining application in progress",
+    width: 800,
+    height: 600,
+  },
+  // Service 12: Fence Painting
+  "service-12-detail-1": {
+    src: "/images/fence-painting-gray.jpg",
+    alt: "Gray painted fence along property",
+    width: 800,
+    height: 1067,
+  },
+  "service-12-detail-2": {
+    src: "/images/stock-12.jpg",
+    alt: "White picket fence freshly painted",
+    width: 800,
+    height: 600,
+  },
+  // Service 13: House Painting
+  "service-13-detail-1": {
+    src: "/images/house-painting-twostory.jpg",
+    alt: "Two-story home painting project",
+    width: 800,
+    height: 1067,
+  },
+  "service-13-detail-2": {
+    src: "/images/house-painting-brick-landscaped.jpg",
+    alt: "Brick home with fresh trim painting",
+    width: 800,
+    height: 1067,
   },
 
   // ===== ABOUT PAGE =====
   "about-hero": {
-    src: "/images/about-hero.jpg",
-    alt: "Our team at work",
+    src: "/images/stock-2.jpg",
+    alt: "Scott's Painting and Power Washing — serving Central Ohio",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
   },
   "about-story": {
-    src: "/images/about-story.jpg",
-    alt: "Company founder leading a project on site",
+    src: "/images/exterior-painting-brick-historic.jpg",
+    alt: "Quality craftsmanship on historic brick home",
     width: 800,
-    height: 1000,
+    height: 1067,
     focalPoint: { x: 0.5, y: 0.3 },
   },
   "about-team": {
-    src: "/images/about-team.jpg",
-    alt: "Our experienced team",
+    src: "/images/power-washing-action.jpg",
+    alt: "Scott Hysell at work power washing a home",
     width: 800,
     height: 600,
   },
 
   // ===== CONTACT PAGE =====
   "contact-hero": {
-    src: "/images/contact-hero.jpg",
-    alt: "Get in touch with our team",
+    src: "/images/stock-13.jpg",
+    alt: "Contact Scott's Painting and Power Washing",
     width: 1920,
     height: 600,
     focalPoint: { x: 0.5, y: 0.4 },
@@ -146,19 +410,19 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
 
   // ===== TESTIMONIALS =====
   "testimonial-1": {
-    src: "/images/testimonial-1.jpg",
+    src: "",
     alt: "Client portrait",
     width: 200,
     height: 200,
   },
   "testimonial-2": {
-    src: "/images/testimonial-2.jpg",
+    src: "",
     alt: "Client portrait",
     width: 200,
     height: 200,
   },
   "testimonial-3": {
-    src: "/images/testimonial-3.jpg",
+    src: "",
     alt: "Client portrait",
     width: 200,
     height: 200,
@@ -166,15 +430,15 @@ export const imageManifest: Record<string, ImageSlotConfig> = {
 
   // ===== BRANDING =====
   logo: {
-    src: "/images/logo.svg",
-    alt: "Company logo",
+    src: "/images/logo.webp",
+    alt: "Scott's Painting and Power Washing logo",
     width: 180,
-    height: 48,
+    height: 180,
   },
   "logo-white": {
-    src: "/images/logo-white.svg",
-    alt: "Company logo",
+    src: "/images/logo.webp",
+    alt: "Scott's Painting and Power Washing logo",
     width: 180,
-    height: 48,
+    height: 180,
   },
 };

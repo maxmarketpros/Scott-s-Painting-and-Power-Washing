@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -98,7 +99,7 @@ function MobileMenu({
           {businessConfig.phone}
         </a>
 
-        <Button href="/contact" className="mt-2 w-full" onClick={onClose}>
+        <Button href="/contact-us" className="mt-2 w-full" onClick={onClose}>
           Get a Quote
         </Button>
       </div>
@@ -143,14 +144,15 @@ export function Header() {
         <Container>
           <nav className="flex h-20 items-center justify-between">
             {/* Logo */}
-            <Link
-              href="/"
-              className={cn(
-                "text-xl font-bold tracking-tight transition-colors",
-                scrolled || mobileOpen ? "text-foreground" : "text-white"
-              )}
-            >
-              {siteConfig.name}
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/logo.webp"
+                alt={siteConfig.name}
+                width={160}
+                height={60}
+                className="h-12 w-auto"
+                priority
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -224,7 +226,7 @@ export function Header() {
                 <Phone className="h-4 w-4" />
                 {businessConfig.phone}
               </a>
-              <Button href="/contact" size="sm">
+              <Button href="/contact-us" size="sm">
                 Get a Quote
               </Button>
             </div>

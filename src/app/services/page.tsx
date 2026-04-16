@@ -10,7 +10,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = generatePageMetadata({
   title: "Our Services",
   description:
-    "Explore our comprehensive range of professional services. From initial consultation to final completion, we deliver quality you can trust.",
+    "Explore our full range of painting and power washing services in Central Ohio. Interior painting, exterior painting, cabinet painting, power washing, and more.",
   path: "/services",
 });
 
@@ -18,8 +18,8 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
-        heading="Our Services"
-        subtitle="Comprehensive solutions delivered with precision, transparency, and care."
+        heading="Our Painting & Power Washing Services"
+        subtitle="Professional painting, staining, power washing, and more across Fairfield County and Central Ohio."
         imageKey="service-1-hero"
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -40,7 +40,7 @@ export default function ServicesPage() {
       <CTASection
         heading="Not Sure Which Service You Need?"
         text="Contact us for a free consultation. We'll assess your needs and recommend the best approach."
-        primaryCta={{ label: "Get a Quote", href: "/contact" }}
+        primaryCta={{ label: "Get a Quote", href: "/contact-us" }}
       />
 
       {/* Quote Form */}

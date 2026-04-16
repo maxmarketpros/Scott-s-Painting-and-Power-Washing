@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -46,6 +47,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(generateLocalBusinessSchema()),
           }}
+        />
+        <Script
+          id="ghl-form-embed"
+          src="https://link.msgsndr.com/js/form_embed.js"
+          strategy="lazyOnload"
         />
       </body>
     </html>

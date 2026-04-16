@@ -3,30 +3,30 @@ import type { ProcessStep } from "@/types";
 export const processSteps: ProcessStep[] = [
   {
     step: 1,
-    title: "Consultation",
+    title: "Free Estimate",
     description:
-      "We start with a thorough discussion of your project goals, budget, and timeline. This is where we listen, assess, and begin building your custom plan.",
-    icon: "MessageSquare",
+      "Contact us for a free, no-obligation estimate. We'll visit your property, assess the scope of work, and provide a detailed, transparent quote with no hidden fees.",
+    icon: "ClipboardList",
   },
   {
     step: 2,
-    title: "Planning & Estimate",
+    title: "Custom Plan",
     description:
-      "You receive a detailed proposal with transparent line-item pricing, a clear project timeline, and a comprehensive scope of work — no surprises.",
-    icon: "FileText",
+      "We develop a tailored plan for your project, including color consultation, surface preparation details, material selection, and a clear timeline so you know exactly what to expect.",
+    icon: "Palette",
   },
   {
     step: 3,
-    title: "Execution",
+    title: "Expert Execution",
     description:
-      "Our team gets to work with daily coordination, quality checkpoints, and regular progress updates. We treat your project like our own.",
-    icon: "Hammer",
+      "Our experienced crew gets to work using premium paints and materials. We protect your furniture and landscaping, keep the job site clean, and deliver flawless results.",
+    icon: "Paintbrush",
   },
   {
     step: 4,
     title: "Final Walkthrough",
     description:
-      "We don't consider a project done until you're completely satisfied. A thorough final inspection ensures every detail meets our exacting standards.",
+      "We inspect every detail with you to ensure your complete satisfaction. We don't consider the job done until you're thrilled with the results.",
     icon: "CheckCircle",
   },
 ];

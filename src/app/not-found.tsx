@@ -20,7 +20,7 @@ export default function NotFound() {
           <Button href="/" icon={<ArrowRight className="h-5 w-5" />}>
             Back to Home
           </Button>
-          <Button href="/contact" variant="outline">
+          <Button href="/contact-us" variant="outline">
             Contact Us
           </Button>
         </div>

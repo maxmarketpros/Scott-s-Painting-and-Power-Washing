@@ -12,7 +12,7 @@ export function InfoBar() {
             <span>{businessConfig.address.full}</span>
           </div>
           <div className="hidden h-4 w-px bg-white/20 md:block" />
-          <div className="flex items-center gap-2">
+          <div className="hidden items-center gap-2 md:flex">
             <Clock className="h-4 w-4 text-primary-200" />
             <span>{businessConfig.hours.display}</span>
           </div>

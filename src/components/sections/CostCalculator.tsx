@@ -1,0 +1,317 @@
+"use client";
+
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import { ArrowRight, Calculator, Info, Phone } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { businessConfig } from "@/config/business";
+
+// Base pricing ranges by project type + size
+// Pulled from our actual 2026 Central Ohio quote data
+const pricingTable: Record<
+  string,
+  Record<string, { low: number; high: number }>
+> = {
+  "interior-painting": {
+    small: { low: 1500, high: 3500 }, // ~1,000 sq ft
+    medium: { low: 2200, high: 5000 }, // ~1,500 sq ft
+    large: { low: 3500, high: 7500 }, // ~2,500 sq ft
+    xlarge: { low: 5500, high: 11000 }, // ~3,500 sq ft
+    xxlarge: { low: 7500, high: 15000 }, // 4,500+ sq ft
+  },
+  "exterior-painting": {
+    small: { low: 2500, high: 5500 },
+    medium: { low: 3000, high: 6500 },
+    large: { low: 5500, high: 12000 },
+    xlarge: { low: 9000, high: 18000 },
+    xxlarge: { low: 13000, high: 25000 },
+  },
+  "cabinet-painting": {
+    small: { low: 1800, high: 2800 }, // small kitchen, 15-20 doors
+    medium: { low: 2800, high: 4200 }, // standard, 25-35 doors
+    large: { low: 4200, high: 5800 }, // large, 40-50 doors
+    xlarge: { low: 5800, high: 8500 }, // custom/XL
+    xxlarge: { low: 8500, high: 12000 }, // oversized + island
+  },
+  "power-washing": {
+    small: { low: 225, high: 400 },
+    medium: { low: 325, high: 525 },
+    large: { low: 475, high: 750 },
+    xlarge: { low: 650, high: 1100 },
+    xxlarge: { low: 900, high: 1600 },
+  },
+  "deck-staining": {
+    small: { low: 450, high: 900 }, // small deck <200 sq ft
+    medium: { low: 750, high: 1400 }, // standard ~300 sq ft
+    large: { low: 1200, high: 2200 }, // large ~500 sq ft
+    xlarge: { low: 1800, high: 3200 }, // wraparound / multi-level
+    xxlarge: { low: 2800, high: 5000 },
+  },
+  "house-painting": {
+    small: { low: 4000, high: 9000 },
+    medium: { low: 5500, high: 11500 },
+    large: { low: 9000, high: 19500 },
+    xlarge: { low: 14000, high: 29000 },
+    xxlarge: { low: 20000, high: 40000 },
+  },
+};
+
+// Area multipliers — Columbus is baseline
+const areaMultipliers: Record<string, { mult: number; note: string }> = {
+  "columbus-oh": { mult: 1.0, note: "Columbus baseline" },
+  "grove-city-oh": { mult: 0.95, note: "Efficient suburban routing" },
+  "pickerington-oh": { mult: 0.95, note: "Our home base — lower overhead" },
+  "pataskala-oh": { mult: 0.92, note: "Rural routing discount" },
+  "newark-oh": { mult: 1.05, note: "Historic brick/masonry premium" },
+  "lancaster-oh": { mult: 1.1, note: "Historic district premium" },
+};
+
+// Condition modifiers
+const conditionModifiers: Record<string, { mult: number; label: string; desc: string }> = {
+  good: {
+    mult: 0.9,
+    label: "Good condition",
+    desc: "Surfaces are sound, no peeling, minor touch-ups only",
+  },
+  fair: {
+    mult: 1.0,
+    label: "Fair condition",
+    desc: "Typical wear — some caulking, patching, spot priming needed",
+  },
+  "needs-prep": {
+    mult: 1.2,
+    label: "Needs significant prep",
+    desc: "Peeling paint, scraping, wood repair, or heavy prep",
+  },
+};
+
+// Size labels per project type
+const sizeLabels: Record<string, Record<string, string>> = {
+  "interior-painting": {
+    small: "Small (~1,000 sq ft)",
+    medium: "Medium (~1,500 sq ft)",
+    large: "Large (~2,500 sq ft)",
+    xlarge: "X-Large (~3,500 sq ft)",
+    xxlarge: "4,500+ sq ft",
+  },
+  "exterior-painting": {
+    small: "Small (~1,000 sq ft)",
+    medium: "Medium (~1,500 sq ft)",
+    large: "Large (~2,500 sq ft)",
+    xlarge: "X-Large (~3,500 sq ft)",
+    xxlarge: "4,500+ sq ft",
+  },
+  "cabinet-painting": {
+    small: "Small kitchen (15–20 doors)",
+    medium: "Standard (25–35 doors)",
+    large: "Large (40–50 doors)",
+    xlarge: "Custom / XL kitchen",
+    xxlarge: "Oversized + island",
+  },
+  "power-washing": {
+    small: "Small home (<1,500 sq ft)",
+    medium: "Medium (~2,000 sq ft)",
+    large: "Large (~3,000 sq ft)",
+    xlarge: "X-Large (~4,000 sq ft)",
+    xxlarge: "Estate (~5,000+ sq ft)",
+  },
+  "deck-staining": {
+    small: "Small deck (<200 sq ft)",
+    medium: "Standard (~300 sq ft)",
+    large: "Large (~500 sq ft)",
+    xlarge: "Wraparound / Multi-level",
+    xxlarge: "Estate deck",
+  },
+  "house-painting": {
+    small: "Small (~1,000 sq ft)",
+    medium: "Medium (~1,500 sq ft)",
+    large: "Large (~2,500 sq ft)",
+    xlarge: "X-Large (~3,500 sq ft)",
+    xxlarge: "4,500+ sq ft",
+  },
+};
+
+function formatCurrency(n: number) {
+  return `$${Math.round(n).toLocaleString()}`;
+}
+
+export function CostCalculator() {
+  const [projectType, setProjectType] = useState("interior-painting");
+  const [size, setSize] = useState("large");
+  const [area, setArea] = useState("columbus-oh");
+  const [condition, setCondition] = useState("fair");
+
+  const estimate = useMemo(() => {
+    const base = pricingTable[projectType]?.[size];
+    const areaMod = areaMultipliers[area]?.mult ?? 1.0;
+    const condMod = conditionModifiers[condition]?.mult ?? 1.0;
+    if (!base) return null;
+    return {
+      low: base.low * areaMod * condMod,
+      high: base.high * areaMod * condMod,
+    };
+  }, [projectType, size, area, condition]);
+
+  return (
+    <div className="rounded-2xl border border-border bg-white p-6 shadow-card md:p-10">
+      <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-600">
+        <Calculator className="h-4 w-4" />
+        Cost Calculator
+      </div>
+      <h2 className="mt-2 text-2xl font-bold text-foreground md:text-3xl">
+        Estimate Your Painting Project
+      </h2>
+      <p className="mt-2 text-sm text-muted md:text-base">
+        Answer four quick questions and we&apos;ll show you our typical quote range for
+        that project in your Central Ohio city. Real pricing, not averages from other
+        states.
+      </p>
+
+      <div className="mt-8 grid gap-6 md:grid-cols-2">
+        {/* Project Type */}
+        <div>
+          <label
+            htmlFor="project-type"
+            className="text-sm font-semibold text-foreground"
+          >
+            Project Type
+          </label>
+          <select
+            id="project-type"
+            value={projectType}
+            onChange={(e) => setProjectType(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+          >
+            <option value="interior-painting">Interior Painting</option>
+            <option value="exterior-painting">Exterior Painting</option>
+            <option value="house-painting">Full House Painting (Int + Ext)</option>
+            <option value="cabinet-painting">Cabinet Painting</option>
+            <option value="power-washing">Power Washing</option>
+            <option value="deck-staining">Deck Staining</option>
+          </select>
+        </div>
+
+        {/* Size */}
+        <div>
+          <label htmlFor="size" className="text-sm font-semibold text-foreground">
+            Project Size
+          </label>
+          <select
+            id="size"
+            value={size}
+            onChange={(e) => setSize(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+          >
+            {Object.entries(sizeLabels[projectType] || {}).map(([k, v]) => (
+              <option key={k} value={k}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Area */}
+        <div>
+          <label htmlFor="area" className="text-sm font-semibold text-foreground">
+            Your City
+          </label>
+          <select
+            id="area"
+            value={area}
+            onChange={(e) => setArea(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+          >
+            <option value="columbus-oh">Columbus, OH</option>
+            <option value="grove-city-oh">Grove City, OH</option>
+            <option value="pickerington-oh">Pickerington, OH</option>
+            <option value="pataskala-oh">Pataskala, OH</option>
+            <option value="newark-oh">Newark, OH</option>
+            <option value="lancaster-oh">Lancaster, OH</option>
+          </select>
+        </div>
+
+        {/* Condition */}
+        <div>
+          <label htmlFor="condition" className="text-sm font-semibold text-foreground">
+            Surface Condition
+          </label>
+          <select
+            id="condition"
+            value={condition}
+            onChange={(e) => setCondition(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+          >
+            {Object.entries(conditionModifiers).map(([k, v]) => (
+              <option key={k} value={k}>
+                {v.label}
+              </option>
+            ))}
+          </select>
+          <p className="mt-1 text-xs text-muted">
+            {conditionModifiers[condition]?.desc}
+          </p>
+        </div>
+      </div>
+
+      {/* Estimate */}
+      {estimate && (
+        <div className="mt-10 rounded-2xl bg-primary-50 p-6 md:p-8">
+          <div className="text-xs font-semibold uppercase tracking-wider text-primary-600">
+            Estimated Range
+          </div>
+          <div className="mt-2 flex flex-wrap items-baseline gap-2 text-primary-900">
+            <span className="text-3xl font-bold md:text-5xl">
+              {formatCurrency(estimate.low)}
+            </span>
+            <span className="text-xl font-semibold text-primary-500 md:text-2xl">
+              – {formatCurrency(estimate.high)}
+            </span>
+          </div>
+          <p className="mt-2 text-sm text-primary-900/80">
+            Based on typical {projectType.replace("-", " ")} projects we complete in{" "}
+            {area
+              .replace("-oh", "")
+              .split("-")
+              .map((w) => w[0].toUpperCase() + w.slice(1))
+              .join(" ")}
+            , OH. {areaMultipliers[area]?.note}.
+          </p>
+
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Button
+              href="/contact-us"
+              size="lg"
+              icon={<ArrowRight className="h-5 w-5" />}
+            >
+              Get an Exact Quote
+            </Button>
+            <Button
+              href={`tel:${businessConfig.phoneRaw}`}
+              variant="outline"
+              size="lg"
+              icon={<Phone className="h-5 w-5" />}
+            >
+              Call {businessConfig.phone}
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Disclaimer */}
+      <div className="mt-6 flex gap-2 rounded-xl border border-border bg-surface p-4">
+        <Info className="mt-0.5 h-5 w-5 shrink-0 text-muted" />
+        <p className="text-xs leading-relaxed text-muted">
+          <strong className="text-foreground">This is an estimate, not a quote.</strong>{" "}
+          Every home is different. Exact pricing depends on paint grade, trim complexity,
+          number of stories, accessibility, and specific prep requirements we can only
+          determine on site. For a real written quote, schedule a free walk-through by
+          calling{" "}
+          <Link href="/contact-us" className="font-semibold text-primary-600 hover:underline">
+            {businessConfig.phone}
+          </Link>
+          .
+        </p>
+      </div>
+    </div>
+  );
+}

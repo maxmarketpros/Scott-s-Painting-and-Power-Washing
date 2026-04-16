@@ -24,10 +24,9 @@ interface ServicePageProps {
   params: Promise<{ slug: string }>;
 }
 
-const { city, state } = businessConfig.address;
-const cityState = `${city}, ${state}`;
+const displayArea = businessConfig.displayArea;
 const ctaProps = {
-  primary: { label: "Get a Quote", href: "/contact" },
+  primary: { label: "Get a Quote", href: "/contact-us" },
   secondary: { label: `Call ${businessConfig.phone}`, href: `tel:${businessConfig.phoneRaw}` },
 };
 
@@ -42,8 +41,9 @@ export async function generateMetadata({
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
 
+  const h1 = service.h1Override || `${service.title} in ${displayArea}`;
   return generatePageMetadata({
-    title: `${service.title} in ${cityState}`,
+    title: h1,
     description: service.excerpt,
     path: `/services/${service.slug}`,
   });
@@ -87,9 +87,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
         }}
       />
 
-      {/* Page Hero — H1 includes city, state */}
+      {/* Page Hero — H1 includes service area */}
       <PageHero
-        heading={`${service.title} in ${cityState}`}
+        heading={service.h1Override || `${service.title} in ${displayArea}`}
         subtitle={service.excerpt}
         imageKey={service.heroImage}
         breadcrumbs={[
@@ -121,7 +121,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         ))}
         <div className="mt-6 flex flex-wrap gap-4">
           <Button
-            href="/contact"
+            href="/contact-us"
             icon={<ArrowRight className="h-5 w-5" />}
           >
             Get a Quote

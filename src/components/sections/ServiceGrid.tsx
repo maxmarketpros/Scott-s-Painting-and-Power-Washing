@@ -28,7 +28,7 @@ export function ServiceGrid() {
 
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button
-            href="/contact"
+            href="/contact-us"
             size="lg"
             icon={<ArrowRight className="h-5 w-5" />}
           >
