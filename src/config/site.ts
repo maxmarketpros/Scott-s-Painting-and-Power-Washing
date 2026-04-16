@@ -1,8 +1,12 @@
 export const siteConfig = {
   name: "Scott's Painting and Power Washing",
-  tagline: "Professional Painting & Power Washing in Central Ohio",
+  // tagline is joined as `${name} | ${tagline}` in page titles. Keep the
+  // combined string under 75 chars so Google doesn't truncate it.
+  tagline: "Fairfield County & Central Ohio",
+  // description is used for meta description and in the Footer body.
+  // Keep under 160 chars to avoid SERP truncation.
   description:
-    "Scott's Painting and Power Washing has delivered expert painting and power washing services across Central Ohio for over 25 years. Serving Fairfield County, Franklin County, and Licking County with 17,000+ projects completed.",
+    "Expert painting & power washing across Central Ohio for 25+ years. Serving Fairfield, Franklin, and Licking Counties with 17,000+ projects completed.",
   url: "https://scottspaintingpw.com",
   ogImage: "/images/og-image.jpg",
   social: {
