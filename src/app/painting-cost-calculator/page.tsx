@@ -58,15 +58,19 @@ export default function PaintingCostCalculatorPage() {
             />
             <p className="mt-6 text-base leading-relaxed text-muted md:text-lg">
               Scott&apos;s base rate for interior and exterior painting runs{" "}
-              <strong className="text-foreground">$1.50–$2.00 per square foot</strong>{" "}
-              of the home, with separate pricing for doors, ceilings, gutters, trim,
-              and molding. This calculator uses those same numbers across Columbus,
+              <strong className="text-foreground">
+                $1.50–$2.00 per square foot of painted surface
+              </strong>{" "}
+              — the actual walls and siding getting paint, not the home&apos;s floor
+              size. Doors, ceilings, gutters, trim, and molding are priced
+              separately. This calculator uses those same numbers across Columbus,
               Grove City, Pickerington, Pataskala, Newark, and Lancaster — no
               national averages, no ballpark guesses.
             </p>
             <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
-              Pick your project, size, city, and condition, then check off any
-              add-ons — the estimate updates live. For an exact number on your home,{" "}
+              Pick your home size and project, then check off any add-ons — the
+              estimate updates live and we handle the conversion from home size to
+              paintable area for you. For an exact number on your home,{" "}
               <Link
                 href="/contact-us"
                 className="font-semibold text-primary-600 hover:underline"

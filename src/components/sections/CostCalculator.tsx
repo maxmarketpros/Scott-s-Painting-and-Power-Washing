@@ -6,40 +6,40 @@ import { ArrowRight, Calculator, Info, Phone } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { businessConfig } from "@/config/business";
 
-// Base pricing: Scott's standard rate of $1.50-$2.00 per sqft of the home
-// for interior and exterior painting. Cabinet painting, power washing, and
-// deck staining use project-based ranges because Scott doesn't quote those
-// per-sqft. Awaiting confirmation from Scott on whether his $1.50-$2.00/sqft
-// is home floor area or paintable surface area — assumed home floor area
-// here; update the NOMINAL_SQFT values if he clarifies otherwise.
+// Base pricing: Scott's standard rate of $1.50-$2.00 per sqft of painted
+// SURFACE AREA (walls / siding — not home floor area). The user still picks
+// a bucket based on their home size, and the calculator converts to
+// estimated paintable area using industry-standard multipliers:
+//   • interior paintable walls ≈ 2.5× home floor (9ft ceilings, typical layout)
+//   • exterior siding ≈ 2.0× home floor (mixed-story average)
+// Those multipliers are baked into the numbers below.
 const pricingTable: Record<
   string,
   Record<string, { low: number; high: number }>
 > = {
   "interior-painting": {
-    // $1.50–$2.00 per sqft of the home's floor area.
-    small: { low: 1500, high: 2000 }, // ~1,000 sq ft
-    medium: { low: 2250, high: 3000 }, // ~1,500 sq ft
-    large: { low: 3750, high: 5000 }, // ~2,500 sq ft
-    xlarge: { low: 5250, high: 7000 }, // ~3,500 sq ft
-    xxlarge: { low: 6750, high: 9000 }, // 4,500+ sq ft
+    // home floor × 2.5 × $1.50-$2.00
+    small: { low: 3750, high: 5000 }, // ~1,000 home → ~2,500 sqft paint
+    medium: { low: 5625, high: 7500 }, // ~1,500 home → ~3,750 sqft paint
+    large: { low: 9375, high: 12500 }, // ~2,500 home → ~6,250 sqft paint
+    xlarge: { low: 13125, high: 17500 }, // ~3,500 home → ~8,750 sqft paint
+    xxlarge: { low: 16875, high: 22500 }, // ~4,500 home → ~11,250 sqft paint
   },
   "exterior-painting": {
-    // Same $1.50–$2.00 base.
-    small: { low: 1500, high: 2000 },
-    medium: { low: 2250, high: 3000 },
-    large: { low: 3750, high: 5000 },
-    xlarge: { low: 5250, high: 7000 },
-    xxlarge: { low: 6750, high: 9000 },
+    // home floor × 2.0 × $1.50-$2.00
+    small: { low: 3000, high: 4000 }, // ~2,000 sqft siding
+    medium: { low: 4500, high: 6000 }, // ~3,000 sqft siding
+    large: { low: 7500, high: 10000 }, // ~5,000 sqft siding
+    xlarge: { low: 10500, high: 14000 }, // ~7,000 sqft siding
+    xxlarge: { low: 13500, high: 18000 }, // ~9,000 sqft siding
   },
   "house-painting": {
-    // Full interior + exterior. Roughly 1.8× the single-service base so a
-    // customer picking both gets a small combined-job discount.
-    small: { low: 2700, high: 3600 },
-    medium: { low: 4050, high: 5400 },
-    large: { low: 6750, high: 9000 },
-    xlarge: { low: 9450, high: 12600 },
-    xxlarge: { low: 12150, high: 16200 },
+    // Interior + exterior combined with a ~10% bundle discount.
+    small: { low: 6075, high: 8100 },
+    medium: { low: 9113, high: 12150 },
+    large: { low: 15188, high: 20250 },
+    xlarge: { low: 21263, high: 28350 },
+    xxlarge: { low: 27338, high: 36450 },
   },
   "cabinet-painting": {
     // Flat project ranges — cabinets aren't a per-home-sqft job.
@@ -253,10 +253,11 @@ export function CostCalculator() {
         Estimate Your Painting Project
       </h2>
       <p className="mt-2 text-sm text-muted md:text-base">
-        Scott&apos;s base rate runs <strong>$1.50–$2.00 per sqft</strong> for interior
-        and exterior painting, with add-ons for extras like doors, ceilings, gutters,
-        and trim. Answer the questions below to see a typical range for your Central
-        Ohio project.
+        Scott&apos;s base rate runs <strong>$1.50–$2.00 per sqft of painted surface
+        area</strong> (walls and siding, not home floor size). Pick your home size
+        and we&apos;ll estimate the paintable area for you, then stack on any
+        add-ons — doors, ceilings, gutters, trim — to mirror how Scott builds a
+        real quote.
       </p>
 
       <div className="mt-8 grid gap-6 md:grid-cols-2">
