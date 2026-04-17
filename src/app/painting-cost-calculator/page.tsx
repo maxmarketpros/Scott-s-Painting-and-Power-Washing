@@ -57,15 +57,16 @@ export default function PaintingCostCalculatorPage() {
               heading="How Much Will Your Painting Project Cost?"
             />
             <p className="mt-6 text-base leading-relaxed text-muted md:text-lg">
-              Central Ohio painting prices swing based on home size, surface condition,
-              project type, and your specific city. This calculator uses our actual 2026
-              quote ranges from jobs in Columbus, Grove City, Pickerington, Pataskala,
-              Newark, and Lancaster — not national averages that ignore Ohio&apos;s
-              freeze-thaw prep work and two-story colonial-heavy housing stock.
+              Scott&apos;s base rate for interior and exterior painting runs{" "}
+              <strong className="text-foreground">$1.50–$2.00 per square foot</strong>{" "}
+              of the home, with separate pricing for doors, ceilings, gutters, trim,
+              and molding. This calculator uses those same numbers across Columbus,
+              Grove City, Pickerington, Pataskala, Newark, and Lancaster — no
+              national averages, no ballpark guesses.
             </p>
             <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
-              Pick your project, size, city, and condition — and we&apos;ll show you the
-              typical range we quote. For an exact number on your home,{" "}
+              Pick your project, size, city, and condition, then check off any
+              add-ons — the estimate updates live. For an exact number on your home,{" "}
               <Link
                 href="/contact-us"
                 className="font-semibold text-primary-600 hover:underline"

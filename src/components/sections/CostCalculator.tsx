@@ -6,32 +6,48 @@ import { ArrowRight, Calculator, Info, Phone } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { businessConfig } from "@/config/business";
 
-// Base pricing ranges by project type + size
-// Pulled from our actual 2026 Central Ohio quote data
+// Base pricing: Scott's standard rate of $1.50-$2.00 per sqft of the home
+// for interior and exterior painting. Cabinet painting, power washing, and
+// deck staining use project-based ranges because Scott doesn't quote those
+// per-sqft. Awaiting confirmation from Scott on whether his $1.50-$2.00/sqft
+// is home floor area or paintable surface area — assumed home floor area
+// here; update the NOMINAL_SQFT values if he clarifies otherwise.
 const pricingTable: Record<
   string,
   Record<string, { low: number; high: number }>
 > = {
   "interior-painting": {
-    small: { low: 1500, high: 3500 }, // ~1,000 sq ft
-    medium: { low: 2200, high: 5000 }, // ~1,500 sq ft
-    large: { low: 3500, high: 7500 }, // ~2,500 sq ft
-    xlarge: { low: 5500, high: 11000 }, // ~3,500 sq ft
-    xxlarge: { low: 7500, high: 15000 }, // 4,500+ sq ft
+    // $1.50–$2.00 per sqft of the home's floor area.
+    small: { low: 1500, high: 2000 }, // ~1,000 sq ft
+    medium: { low: 2250, high: 3000 }, // ~1,500 sq ft
+    large: { low: 3750, high: 5000 }, // ~2,500 sq ft
+    xlarge: { low: 5250, high: 7000 }, // ~3,500 sq ft
+    xxlarge: { low: 6750, high: 9000 }, // 4,500+ sq ft
   },
   "exterior-painting": {
-    small: { low: 2500, high: 5500 },
-    medium: { low: 3000, high: 6500 },
-    large: { low: 5500, high: 12000 },
-    xlarge: { low: 9000, high: 18000 },
-    xxlarge: { low: 13000, high: 25000 },
+    // Same $1.50–$2.00 base.
+    small: { low: 1500, high: 2000 },
+    medium: { low: 2250, high: 3000 },
+    large: { low: 3750, high: 5000 },
+    xlarge: { low: 5250, high: 7000 },
+    xxlarge: { low: 6750, high: 9000 },
+  },
+  "house-painting": {
+    // Full interior + exterior. Roughly 1.8× the single-service base so a
+    // customer picking both gets a small combined-job discount.
+    small: { low: 2700, high: 3600 },
+    medium: { low: 4050, high: 5400 },
+    large: { low: 6750, high: 9000 },
+    xlarge: { low: 9450, high: 12600 },
+    xxlarge: { low: 12150, high: 16200 },
   },
   "cabinet-painting": {
-    small: { low: 1800, high: 2800 }, // small kitchen, 15-20 doors
-    medium: { low: 2800, high: 4200 }, // standard, 25-35 doors
-    large: { low: 4200, high: 5800 }, // large, 40-50 doors
-    xlarge: { low: 5800, high: 8500 }, // custom/XL
-    xxlarge: { low: 8500, high: 12000 }, // oversized + island
+    // Flat project ranges — cabinets aren't a per-home-sqft job.
+    small: { low: 1800, high: 2800 },
+    medium: { low: 2800, high: 4200 },
+    large: { low: 4200, high: 5800 },
+    xlarge: { low: 5800, high: 8500 },
+    xxlarge: { low: 8500, high: 12000 },
   },
   "power-washing": {
     small: { low: 225, high: 400 },
@@ -41,19 +57,22 @@ const pricingTable: Record<
     xxlarge: { low: 900, high: 1600 },
   },
   "deck-staining": {
-    small: { low: 450, high: 900 }, // small deck <200 sq ft
-    medium: { low: 750, high: 1400 }, // standard ~300 sq ft
-    large: { low: 1200, high: 2200 }, // large ~500 sq ft
-    xlarge: { low: 1800, high: 3200 }, // wraparound / multi-level
+    small: { low: 450, high: 900 },
+    medium: { low: 750, high: 1400 },
+    large: { low: 1200, high: 2200 },
+    xlarge: { low: 1800, high: 3200 },
     xxlarge: { low: 2800, high: 5000 },
   },
-  "house-painting": {
-    small: { low: 4000, high: 9000 },
-    medium: { low: 5500, high: 11500 },
-    large: { low: 9000, high: 19500 },
-    xlarge: { low: 14000, high: 29000 },
-    xxlarge: { low: 20000, high: 40000 },
-  },
+};
+
+// Nominal home sqft for each bucket — used to scale percentage-based add-ons
+// (ceilings, trim) off the home size rather than off the current price range.
+const nominalHomeSqft: Record<string, number> = {
+  small: 1000,
+  medium: 1500,
+  large: 2500,
+  xlarge: 3500,
+  xxlarge: 4500,
 };
 
 // Area multipliers — Columbus is baseline
@@ -131,6 +150,26 @@ const sizeLabels: Record<string, Record<string, string>> = {
   },
 };
 
+// Which project types are eligible for the standard paint-job add-ons.
+const ADDON_ELIGIBLE = new Set([
+  "interior-painting",
+  "exterior-painting",
+  "house-painting",
+]);
+
+// Per-door add-on cost (both sides, standard interior door).
+const DOOR_COST = 125;
+
+// Flat gutter paint add-on — single-story / typical lot assumption.
+const GUTTERS_COST = 500;
+
+// Ceiling paint adds roughly $1 per sqft of home (varies by ceiling height).
+const CEILING_PER_SQFT = 1.0;
+
+// Trim & molding is priced off the base paint job because the square footage
+// of trim scales with the house size.
+const TRIM_PERCENT = 0.15;
+
 function formatCurrency(n: number) {
   return `$${Math.round(n).toLocaleString()}`;
 }
@@ -141,16 +180,68 @@ export function CostCalculator() {
   const [area, setArea] = useState("columbus-oh");
   const [condition, setCondition] = useState("fair");
 
+  // Add-ons
+  const [doorsCount, setDoorsCount] = useState(0);
+  const [addCeilings, setAddCeilings] = useState(false);
+  const [addGutters, setAddGutters] = useState(false);
+  const [addTrim, setAddTrim] = useState(false);
+
+  const showAddons = ADDON_ELIGIBLE.has(projectType);
+
   const estimate = useMemo(() => {
     const base = pricingTable[projectType]?.[size];
     const areaMod = areaMultipliers[area]?.mult ?? 1.0;
     const condMod = conditionModifiers[condition]?.mult ?? 1.0;
     if (!base) return null;
+
+    const baseLow = base.low * areaMod * condMod;
+    const baseHigh = base.high * areaMod * condMod;
+
+    // Add-ons only stack onto paint projects.
+    let addOnsLow = 0;
+    let addOnsHigh = 0;
+    if (showAddons) {
+      if (doorsCount > 0) {
+        const doorsTotal = doorsCount * DOOR_COST;
+        addOnsLow += doorsTotal;
+        addOnsHigh += doorsTotal;
+      }
+      if (addCeilings) {
+        const homeSqft = nominalHomeSqft[size] ?? 1500;
+        // Give ceilings a small range (±20%) so the estimate stays a range.
+        const ceilingMid = homeSqft * CEILING_PER_SQFT;
+        addOnsLow += ceilingMid * 0.8;
+        addOnsHigh += ceilingMid * 1.2;
+      }
+      if (addGutters) {
+        addOnsLow += GUTTERS_COST * 0.8;
+        addOnsHigh += GUTTERS_COST * 1.2;
+      }
+      if (addTrim) {
+        addOnsLow += baseLow * TRIM_PERCENT;
+        addOnsHigh += baseHigh * TRIM_PERCENT;
+      }
+    }
+
     return {
-      low: base.low * areaMod * condMod,
-      high: base.high * areaMod * condMod,
+      low: baseLow + addOnsLow,
+      high: baseHigh + addOnsHigh,
+      baseLow,
+      baseHigh,
+      addOnsLow,
+      addOnsHigh,
     };
-  }, [projectType, size, area, condition]);
+  }, [
+    projectType,
+    size,
+    area,
+    condition,
+    doorsCount,
+    addCeilings,
+    addGutters,
+    addTrim,
+    showAddons,
+  ]);
 
   return (
     <div className="rounded-2xl border border-border bg-white p-6 shadow-card md:p-10">
@@ -162,9 +253,10 @@ export function CostCalculator() {
         Estimate Your Painting Project
       </h2>
       <p className="mt-2 text-sm text-muted md:text-base">
-        Answer four quick questions and we&apos;ll show you our typical quote range for
-        that project in your Central Ohio city. Real pricing, not averages from other
-        states.
+        Scott&apos;s base rate runs <strong>$1.50–$2.00 per sqft</strong> for interior
+        and exterior painting, with add-ons for extras like doors, ceilings, gutters,
+        and trim. Answer the questions below to see a typical range for your Central
+        Ohio project.
       </p>
 
       <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -253,6 +345,104 @@ export function CostCalculator() {
         </div>
       </div>
 
+      {/* Add-Ons */}
+      {showAddons && (
+        <div className="mt-8 rounded-2xl border border-border bg-surface p-6">
+          <div className="text-sm font-semibold text-foreground">
+            Add-Ons{" "}
+            <span className="font-normal text-muted">
+              (Scott charges separately for these)
+            </span>
+          </div>
+          <p className="mt-1 text-xs text-muted">
+            The base rate covers walls. Pick anything else you want painted and
+            we&apos;ll stack it into the estimate.
+          </p>
+
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {/* Doors */}
+            <div className="flex flex-col rounded-xl border border-border bg-white p-4">
+              <label
+                htmlFor="doors-count"
+                className="text-sm font-semibold text-foreground"
+              >
+                Doors to paint
+              </label>
+              <div className="mt-2 flex items-center gap-3">
+                <input
+                  id="doors-count"
+                  type="number"
+                  min={0}
+                  max={50}
+                  value={doorsCount}
+                  onChange={(e) =>
+                    setDoorsCount(Math.max(0, Math.min(50, Number(e.target.value) || 0)))
+                  }
+                  className="w-24 rounded-lg border border-border bg-white px-3 py-2 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+                />
+                <span className="text-xs text-muted">
+                  ~${DOOR_COST} per door (both sides)
+                </span>
+              </div>
+            </div>
+
+            {/* Ceilings */}
+            <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-white p-4 hover:border-primary-300">
+              <input
+                type="checkbox"
+                checked={addCeilings}
+                onChange={(e) => setAddCeilings(e.target.checked)}
+                className="mt-0.5 h-5 w-5 rounded border-border text-primary-600 focus:ring-primary-500"
+              />
+              <div>
+                <div className="text-sm font-semibold text-foreground">
+                  Paint ceilings
+                </div>
+                <div className="text-xs text-muted">
+                  ~${CEILING_PER_SQFT.toFixed(2)}/sqft of home
+                </div>
+              </div>
+            </label>
+
+            {/* Gutters */}
+            <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-white p-4 hover:border-primary-300">
+              <input
+                type="checkbox"
+                checked={addGutters}
+                onChange={(e) => setAddGutters(e.target.checked)}
+                className="mt-0.5 h-5 w-5 rounded border-border text-primary-600 focus:ring-primary-500"
+              />
+              <div>
+                <div className="text-sm font-semibold text-foreground">
+                  Paint gutters
+                </div>
+                <div className="text-xs text-muted">
+                  ~${GUTTERS_COST} flat (typical lot)
+                </div>
+              </div>
+            </label>
+
+            {/* Trim / Molding */}
+            <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-white p-4 hover:border-primary-300">
+              <input
+                type="checkbox"
+                checked={addTrim}
+                onChange={(e) => setAddTrim(e.target.checked)}
+                className="mt-0.5 h-5 w-5 rounded border-border text-primary-600 focus:ring-primary-500"
+              />
+              <div>
+                <div className="text-sm font-semibold text-foreground">
+                  Paint trim &amp; molding
+                </div>
+                <div className="text-xs text-muted">
+                  +{Math.round(TRIM_PERCENT * 100)}% of base
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+      )}
+
       {/* Estimate */}
       {estimate && (
         <div className="mt-10 rounded-2xl bg-primary-50 p-6 md:p-8">
@@ -268,7 +458,7 @@ export function CostCalculator() {
             </span>
           </div>
           <p className="mt-2 text-sm text-primary-900/80">
-            Based on typical {projectType.replace("-", " ")} projects we complete in{" "}
+            Based on typical {projectType.replace(/-/g, " ")} projects we complete in{" "}
             {area
               .replace("-oh", "")
               .split("-")
@@ -276,6 +466,23 @@ export function CostCalculator() {
               .join(" ")}
             , OH. {areaMultipliers[area]?.note}.
           </p>
+
+          {showAddons && estimate.addOnsHigh > 0 && (
+            <div className="mt-4 border-t border-primary-200 pt-4 text-sm text-primary-900/80">
+              <div className="flex justify-between gap-4">
+                <span>Base {projectType.replace(/-/g, " ")}</span>
+                <span className="font-semibold text-primary-900">
+                  {formatCurrency(estimate.baseLow)} – {formatCurrency(estimate.baseHigh)}
+                </span>
+              </div>
+              <div className="mt-1 flex justify-between gap-4">
+                <span>Add-ons</span>
+                <span className="font-semibold text-primary-900">
+                  +{formatCurrency(estimate.addOnsLow)} – {formatCurrency(estimate.addOnsHigh)}
+                </span>
+              </div>
+            </div>
+          )}
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Button
