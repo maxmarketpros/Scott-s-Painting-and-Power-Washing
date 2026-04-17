@@ -6,76 +6,84 @@ import { ArrowRight, Calculator, Info, Phone } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { businessConfig } from "@/config/business";
 
-// Base pricing: Scott's standard rate of $1.50-$2.00 per sqft of painted
-// SURFACE AREA (walls / siding — not home floor area). The user still picks
-// a bucket based on their home size, and the calculator converts to
-// estimated paintable area using industry-standard multipliers:
-//   • interior paintable walls ≈ 2.5× home floor (9ft ceilings, typical layout)
-//   • exterior siding ≈ 2.0× home floor (mixed-story average)
-// Those multipliers are baked into the numbers below.
-const pricingTable: Record<
-  string,
-  Record<string, { low: number; high: number }>
+// ============================================================================
+// Scott's stated rate: $1.50–$2.00 per square foot of PAINTED SURFACE —
+// walls and siding, not home floor area. The user picks their home size
+// (what they actually know), and the calculator converts that to an
+// estimated paintable area, then applies Scott's rate directly. The
+// conversion is shown in the estimate panel so nothing is hidden.
+// ============================================================================
+
+const RATE_LOW = 1.5;
+const RATE_HIGH = 2.0;
+
+// Interior wall area per sqft of home floor (walls only — ceilings are an
+// add-on). Based on typical 9ft ceilings + typical room layouts.
+const INTERIOR_WALL_MULTIPLIER = 1.2;
+
+// Exterior siding area per sqft of home footprint, by story count.
+const EXTERIOR_SIDING_MULTIPLIER: Record<string, number> = {
+  "1": 1.2,
+  "2": 1.8,
+  "3": 2.3,
+};
+
+// Full-house bundle discount (interior + exterior done together).
+const BUNDLE_DISCOUNT = 0.1;
+
+type HomeSize = "small" | "medium" | "large" | "xlarge" | "xxlarge";
+
+const HOME_SIZE_OPTIONS: { value: HomeSize; label: string; sqft: number }[] = [
+  { value: "small", label: "Small (~1,000 sqft) — condo or starter home", sqft: 1000 },
+  { value: "medium", label: "Medium (~1,500 sqft) — townhouse or small home", sqft: 1500 },
+  { value: "large", label: "Large (~2,500 sqft) — typical 3–4 bedroom", sqft: 2500 },
+  { value: "xlarge", label: "X-Large (~3,500 sqft) — executive home", sqft: 3500 },
+  { value: "xxlarge", label: "4,500+ sqft — estate", sqft: 4500 },
+];
+
+// Flat (non-paintable-sqft) project types use their own size labels + prices.
+type FlatProject = "cabinet-painting" | "power-washing" | "deck-staining";
+
+const flatPricing: Record<
+  FlatProject,
+  {
+    sizeLabel: string;
+    sizes: { value: string; label: string; low: number; high: number }[];
+  }
 > = {
-  "interior-painting": {
-    // home floor × 2.5 × $1.50-$2.00
-    small: { low: 3750, high: 5000 }, // ~1,000 home → ~2,500 sqft paint
-    medium: { low: 5625, high: 7500 }, // ~1,500 home → ~3,750 sqft paint
-    large: { low: 9375, high: 12500 }, // ~2,500 home → ~6,250 sqft paint
-    xlarge: { low: 13125, high: 17500 }, // ~3,500 home → ~8,750 sqft paint
-    xxlarge: { low: 16875, high: 22500 }, // ~4,500 home → ~11,250 sqft paint
-  },
-  "exterior-painting": {
-    // home floor × 2.0 × $1.50-$2.00
-    small: { low: 3000, high: 4000 }, // ~2,000 sqft siding
-    medium: { low: 4500, high: 6000 }, // ~3,000 sqft siding
-    large: { low: 7500, high: 10000 }, // ~5,000 sqft siding
-    xlarge: { low: 10500, high: 14000 }, // ~7,000 sqft siding
-    xxlarge: { low: 13500, high: 18000 }, // ~9,000 sqft siding
-  },
-  "house-painting": {
-    // Interior + exterior combined with a ~10% bundle discount.
-    small: { low: 6075, high: 8100 },
-    medium: { low: 9113, high: 12150 },
-    large: { low: 15188, high: 20250 },
-    xlarge: { low: 21263, high: 28350 },
-    xxlarge: { low: 27338, high: 36450 },
-  },
   "cabinet-painting": {
-    // Flat project ranges — cabinets aren't a per-home-sqft job.
-    small: { low: 1800, high: 2800 },
-    medium: { low: 2800, high: 4200 },
-    large: { low: 4200, high: 5800 },
-    xlarge: { low: 5800, high: 8500 },
-    xxlarge: { low: 8500, high: 12000 },
+    sizeLabel: "Kitchen Size",
+    sizes: [
+      { value: "small", label: "Small kitchen (15–20 doors)", low: 1800, high: 2800 },
+      { value: "medium", label: "Standard (25–35 doors)", low: 2800, high: 4200 },
+      { value: "large", label: "Large (40–50 doors)", low: 4200, high: 5800 },
+      { value: "xlarge", label: "Custom / XL kitchen", low: 5800, high: 8500 },
+      { value: "xxlarge", label: "Oversized + island", low: 8500, high: 12000 },
+    ],
   },
   "power-washing": {
-    small: { low: 225, high: 400 },
-    medium: { low: 325, high: 525 },
-    large: { low: 475, high: 750 },
-    xlarge: { low: 650, high: 1100 },
-    xxlarge: { low: 900, high: 1600 },
+    sizeLabel: "Home Size",
+    sizes: [
+      { value: "small", label: "Small home (<1,500 sqft)", low: 225, high: 400 },
+      { value: "medium", label: "Medium (~2,000 sqft)", low: 325, high: 525 },
+      { value: "large", label: "Large (~3,000 sqft)", low: 475, high: 750 },
+      { value: "xlarge", label: "X-Large (~4,000 sqft)", low: 650, high: 1100 },
+      { value: "xxlarge", label: "Estate (~5,000+ sqft)", low: 900, high: 1600 },
+    ],
   },
   "deck-staining": {
-    small: { low: 450, high: 900 },
-    medium: { low: 750, high: 1400 },
-    large: { low: 1200, high: 2200 },
-    xlarge: { low: 1800, high: 3200 },
-    xxlarge: { low: 2800, high: 5000 },
+    sizeLabel: "Deck Size",
+    sizes: [
+      { value: "small", label: "Small deck (<200 sqft)", low: 450, high: 900 },
+      { value: "medium", label: "Standard (~300 sqft)", low: 750, high: 1400 },
+      { value: "large", label: "Large (~500 sqft)", low: 1200, high: 2200 },
+      { value: "xlarge", label: "Wraparound / Multi-level", low: 1800, high: 3200 },
+      { value: "xxlarge", label: "Estate deck", low: 2800, high: 5000 },
+    ],
   },
 };
 
-// Nominal home sqft for each bucket — used to scale percentage-based add-ons
-// (ceilings, trim) off the home size rather than off the current price range.
-const nominalHomeSqft: Record<string, number> = {
-  small: 1000,
-  medium: 1500,
-  large: 2500,
-  xlarge: 3500,
-  xxlarge: 4500,
-};
-
-// Area multipliers — Columbus is baseline
+// Area multipliers — Columbus is baseline.
 const areaMultipliers: Record<string, { mult: number; note: string }> = {
   "columbus-oh": { mult: 1.0, note: "Columbus baseline" },
   "grove-city-oh": { mult: 0.95, note: "Efficient suburban routing" },
@@ -85,8 +93,11 @@ const areaMultipliers: Record<string, { mult: number; note: string }> = {
   "lancaster-oh": { mult: 1.1, note: "Historic district premium" },
 };
 
-// Condition modifiers
-const conditionModifiers: Record<string, { mult: number; label: string; desc: string }> = {
+// Condition modifiers.
+const conditionModifiers: Record<
+  string,
+  { mult: number; label: string; desc: string }
+> = {
   good: {
     mult: 0.9,
     label: "Good condition",
@@ -104,79 +115,36 @@ const conditionModifiers: Record<string, { mult: number; label: string; desc: st
   },
 };
 
-// Size labels per project type
-const sizeLabels: Record<string, Record<string, string>> = {
-  "interior-painting": {
-    small: "Small (~1,000 sq ft)",
-    medium: "Medium (~1,500 sq ft)",
-    large: "Large (~2,500 sq ft)",
-    xlarge: "X-Large (~3,500 sq ft)",
-    xxlarge: "4,500+ sq ft",
-  },
-  "exterior-painting": {
-    small: "Small (~1,000 sq ft)",
-    medium: "Medium (~1,500 sq ft)",
-    large: "Large (~2,500 sq ft)",
-    xlarge: "X-Large (~3,500 sq ft)",
-    xxlarge: "4,500+ sq ft",
-  },
-  "cabinet-painting": {
-    small: "Small kitchen (15–20 doors)",
-    medium: "Standard (25–35 doors)",
-    large: "Large (40–50 doors)",
-    xlarge: "Custom / XL kitchen",
-    xxlarge: "Oversized + island",
-  },
-  "power-washing": {
-    small: "Small home (<1,500 sq ft)",
-    medium: "Medium (~2,000 sq ft)",
-    large: "Large (~3,000 sq ft)",
-    xlarge: "X-Large (~4,000 sq ft)",
-    xxlarge: "Estate (~5,000+ sq ft)",
-  },
-  "deck-staining": {
-    small: "Small deck (<200 sq ft)",
-    medium: "Standard (~300 sq ft)",
-    large: "Large (~500 sq ft)",
-    xlarge: "Wraparound / Multi-level",
-    xxlarge: "Estate deck",
-  },
-  "house-painting": {
-    small: "Small (~1,000 sq ft)",
-    medium: "Medium (~1,500 sq ft)",
-    large: "Large (~2,500 sq ft)",
-    xlarge: "X-Large (~3,500 sq ft)",
-    xxlarge: "4,500+ sq ft",
-  },
-};
-
-// Which project types are eligible for the standard paint-job add-ons.
-const ADDON_ELIGIBLE = new Set([
+const PAINTING_SERVICES = new Set([
   "interior-painting",
   "exterior-painting",
   "house-painting",
 ]);
+const STORIES_RELEVANT = new Set(["exterior-painting", "house-painting"]);
 
-// Per-door add-on cost (both sides, standard interior door).
+// Add-on rates.
 const DOOR_COST = 125;
-
-// Flat gutter paint add-on — single-story / typical lot assumption.
 const GUTTERS_COST = 500;
-
-// Ceiling paint adds roughly $1 per sqft of home (varies by ceiling height).
 const CEILING_PER_SQFT = 1.0;
-
-// Trim & molding is priced off the base paint job because the square footage
-// of trim scales with the house size.
 const TRIM_PERCENT = 0.15;
 
 function formatCurrency(n: number) {
   return `$${Math.round(n).toLocaleString()}`;
 }
 
+function cityLabel(area: string) {
+  return area
+    .replace("-oh", "")
+    .split("-")
+    .map((w) => w[0].toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
 export function CostCalculator() {
   const [projectType, setProjectType] = useState("interior-painting");
-  const [size, setSize] = useState("large");
+  const [homeSize, setHomeSize] = useState<HomeSize>("large");
+  const [stories, setStories] = useState("2");
+  const [flatSize, setFlatSize] = useState("large");
   const [area, setArea] = useState("columbus-oh");
   const [condition, setCondition] = useState("fair");
 
@@ -186,18 +154,54 @@ export function CostCalculator() {
   const [addGutters, setAddGutters] = useState(false);
   const [addTrim, setAddTrim] = useState(false);
 
-  const showAddons = ADDON_ELIGIBLE.has(projectType);
+  const isPainting = PAINTING_SERVICES.has(projectType);
+  const showStories = STORIES_RELEVANT.has(projectType);
+  const showAddons = isPainting;
 
   const estimate = useMemo(() => {
-    const base = pricingTable[projectType]?.[size];
     const areaMod = areaMultipliers[area]?.mult ?? 1.0;
     const condMod = conditionModifiers[condition]?.mult ?? 1.0;
-    if (!base) return null;
 
-    const baseLow = base.low * areaMod * condMod;
-    const baseHigh = base.high * areaMod * condMod;
+    let paintableSqft = 0;
+    let baseLow = 0;
+    let baseHigh = 0;
+    let bundleDiscountApplied = false;
 
-    // Add-ons only stack onto paint projects.
+    if (isPainting) {
+      const homeFloor =
+        HOME_SIZE_OPTIONS.find((o) => o.value === homeSize)?.sqft ?? 2500;
+      const interiorWalls = homeFloor * INTERIOR_WALL_MULTIPLIER;
+      const exteriorSiding =
+        homeFloor * (EXTERIOR_SIDING_MULTIPLIER[stories] ?? 1.8);
+
+      if (projectType === "interior-painting") {
+        paintableSqft = interiorWalls;
+      } else if (projectType === "exterior-painting") {
+        paintableSqft = exteriorSiding;
+      } else {
+        paintableSqft = interiorWalls + exteriorSiding;
+      }
+
+      baseLow = paintableSqft * RATE_LOW;
+      baseHigh = paintableSqft * RATE_HIGH;
+
+      if (projectType === "house-painting") {
+        baseLow *= 1 - BUNDLE_DISCOUNT;
+        baseHigh *= 1 - BUNDLE_DISCOUNT;
+        bundleDiscountApplied = true;
+      }
+
+      baseLow *= areaMod * condMod;
+      baseHigh *= areaMod * condMod;
+    } else {
+      const flat = flatPricing[projectType as FlatProject];
+      const size = flat?.sizes.find((s) => s.value === flatSize);
+      if (!size) return null;
+      baseLow = size.low * areaMod * condMod;
+      baseHigh = size.high * areaMod * condMod;
+    }
+
+    // Add-ons
     let addOnsLow = 0;
     let addOnsHigh = 0;
     if (showAddons) {
@@ -207,9 +211,9 @@ export function CostCalculator() {
         addOnsHigh += doorsTotal;
       }
       if (addCeilings) {
-        const homeSqft = nominalHomeSqft[size] ?? 1500;
-        // Give ceilings a small range (±20%) so the estimate stays a range.
-        const ceilingMid = homeSqft * CEILING_PER_SQFT;
+        const homeFloor =
+          HOME_SIZE_OPTIONS.find((o) => o.value === homeSize)?.sqft ?? 1500;
+        const ceilingMid = homeFloor * CEILING_PER_SQFT;
         addOnsLow += ceilingMid * 0.8;
         addOnsHigh += ceilingMid * 1.2;
       }
@@ -230,18 +234,27 @@ export function CostCalculator() {
       baseHigh,
       addOnsLow,
       addOnsHigh,
+      paintableSqft,
+      bundleDiscountApplied,
     };
   }, [
     projectType,
-    size,
+    homeSize,
+    stories,
+    flatSize,
     area,
     condition,
     doorsCount,
     addCeilings,
     addGutters,
     addTrim,
+    isPainting,
     showAddons,
   ]);
+
+  const flatConfig = !isPainting
+    ? flatPricing[projectType as FlatProject]
+    : null;
 
   return (
     <div className="rounded-2xl border border-border bg-white p-6 shadow-card md:p-10">
@@ -253,11 +266,13 @@ export function CostCalculator() {
         Estimate Your Painting Project
       </h2>
       <p className="mt-2 text-sm text-muted md:text-base">
-        Scott&apos;s base rate runs <strong>$1.50–$2.00 per sqft of painted surface
-        area</strong> (walls and siding, not home floor size). Pick your home size
-        and we&apos;ll estimate the paintable area for you, then stack on any
-        add-ons — doors, ceilings, gutters, trim — to mirror how Scott builds a
-        real quote.
+        Scott charges{" "}
+        <strong className="text-foreground">
+          $1.50–$2.00 per square foot of painted surface
+        </strong>{" "}
+        — the actual walls and siding, not your home&apos;s floor size. Tell us your
+        home size below and we&apos;ll estimate the paintable area, then let you
+        stack on extras like doors, ceilings, gutters, and trim.
       </p>
 
       <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -284,24 +299,75 @@ export function CostCalculator() {
           </select>
         </div>
 
-        {/* Size */}
-        <div>
-          <label htmlFor="size" className="text-sm font-semibold text-foreground">
-            Project Size
-          </label>
-          <select
-            id="size"
-            value={size}
-            onChange={(e) => setSize(e.target.value)}
-            className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
-          >
-            {Object.entries(sizeLabels[projectType] || {}).map(([k, v]) => (
-              <option key={k} value={k}>
-                {v}
-              </option>
-            ))}
-          </select>
-        </div>
+        {/* Size — dynamic by project type */}
+        {isPainting ? (
+          <div>
+            <label
+              htmlFor="home-size"
+              className="text-sm font-semibold text-foreground"
+            >
+              Home Size
+            </label>
+            <select
+              id="home-size"
+              value={homeSize}
+              onChange={(e) => setHomeSize(e.target.value as HomeSize)}
+              className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+            >
+              {HOME_SIZE_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : (
+          <div>
+            <label
+              htmlFor="flat-size"
+              className="text-sm font-semibold text-foreground"
+            >
+              {flatConfig?.sizeLabel ?? "Size"}
+            </label>
+            <select
+              id="flat-size"
+              value={flatSize}
+              onChange={(e) => setFlatSize(e.target.value)}
+              className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+            >
+              {flatConfig?.sizes.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {/* Stories — only for exterior / full house */}
+        {showStories && (
+          <div>
+            <label
+              htmlFor="stories"
+              className="text-sm font-semibold text-foreground"
+            >
+              Number of Stories
+            </label>
+            <select
+              id="stories"
+              value={stories}
+              onChange={(e) => setStories(e.target.value)}
+              className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+            >
+              <option value="1">1 story</option>
+              <option value="2">2 stories</option>
+              <option value="3">3 stories</option>
+            </select>
+            <p className="mt-1 text-xs text-muted">
+              Taller homes have more siding per sqft of footprint.
+            </p>
+          </div>
+        )}
 
         {/* Area */}
         <div>
@@ -346,18 +412,19 @@ export function CostCalculator() {
         </div>
       </div>
 
-      {/* Add-Ons */}
+      {/* Add-Ons — paint projects only */}
       {showAddons && (
         <div className="mt-8 rounded-2xl border border-border bg-surface p-6">
           <div className="text-sm font-semibold text-foreground">
             Add-Ons{" "}
             <span className="font-normal text-muted">
-              (Scott charges separately for these)
+              (estimated pricing — not final)
             </span>
           </div>
           <p className="mt-1 text-xs text-muted">
-            The base rate covers walls. Pick anything else you want painted and
-            we&apos;ll stack it into the estimate.
+            The base rate covers walls and siding only. Scott prices these
+            separately, so check anything else you want painted to see how it
+            stacks onto the estimate.
           </p>
 
           <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -377,12 +444,14 @@ export function CostCalculator() {
                   max={50}
                   value={doorsCount}
                   onChange={(e) =>
-                    setDoorsCount(Math.max(0, Math.min(50, Number(e.target.value) || 0)))
+                    setDoorsCount(
+                      Math.max(0, Math.min(50, Number(e.target.value) || 0))
+                    )
                   }
                   className="w-24 rounded-lg border border-border bg-white px-3 py-2 text-base text-foreground focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
                 />
                 <span className="text-xs text-muted">
-                  ~${DOOR_COST} per door (both sides)
+                  est. ~${DOOR_COST} per door (both sides)
                 </span>
               </div>
             </div>
@@ -400,7 +469,7 @@ export function CostCalculator() {
                   Paint ceilings
                 </div>
                 <div className="text-xs text-muted">
-                  ~${CEILING_PER_SQFT.toFixed(2)}/sqft of home
+                  est. ~${CEILING_PER_SQFT.toFixed(2)}/sqft of home
                 </div>
               </div>
             </label>
@@ -418,7 +487,7 @@ export function CostCalculator() {
                   Paint gutters
                 </div>
                 <div className="text-xs text-muted">
-                  ~${GUTTERS_COST} flat (typical lot)
+                  est. ~${GUTTERS_COST} flat (typical lot)
                 </div>
               </div>
             </label>
@@ -436,11 +505,15 @@ export function CostCalculator() {
                   Paint trim &amp; molding
                 </div>
                 <div className="text-xs text-muted">
-                  +{Math.round(TRIM_PERCENT * 100)}% of base
+                  est. +{Math.round(TRIM_PERCENT * 100)}% of base
                 </div>
               </div>
             </label>
           </div>
+          <p className="mt-4 text-xs italic text-muted">
+            Add-on figures are estimates, not concrete pricing. Scott confirms
+            the exact cost on the walk-through.
+          </p>
         </div>
       )}
 
@@ -460,28 +533,48 @@ export function CostCalculator() {
           </div>
           <p className="mt-2 text-sm text-primary-900/80">
             Based on typical {projectType.replace(/-/g, " ")} projects we complete in{" "}
-            {area
-              .replace("-oh", "")
-              .split("-")
-              .map((w) => w[0].toUpperCase() + w.slice(1))
-              .join(" ")}
-            , OH. {areaMultipliers[area]?.note}.
+            {cityLabel(area)}, OH. {areaMultipliers[area]?.note}.
           </p>
 
-          {showAddons && estimate.addOnsHigh > 0 && (
-            <div className="mt-4 border-t border-primary-200 pt-4 text-sm text-primary-900/80">
+          {/* Painting breakdown */}
+          {isPainting && estimate.paintableSqft > 0 && (
+            <div className="mt-4 space-y-1 border-t border-primary-200 pt-4 text-sm text-primary-900/80">
               <div className="flex justify-between gap-4">
-                <span>Base {projectType.replace(/-/g, " ")}</span>
+                <span>Estimated paintable area</span>
                 <span className="font-semibold text-primary-900">
-                  {formatCurrency(estimate.baseLow)} – {formatCurrency(estimate.baseHigh)}
+                  ~{Math.round(estimate.paintableSqft).toLocaleString()} sqft
                 </span>
               </div>
-              <div className="mt-1 flex justify-between gap-4">
-                <span>Add-ons</span>
+              <div className="flex justify-between gap-4">
+                <span>Scott&apos;s rate</span>
                 <span className="font-semibold text-primary-900">
-                  +{formatCurrency(estimate.addOnsLow)} – {formatCurrency(estimate.addOnsHigh)}
+                  ${RATE_LOW.toFixed(2)}–${RATE_HIGH.toFixed(2)}/sqft
                 </span>
               </div>
+              {estimate.bundleDiscountApplied && (
+                <div className="flex justify-between gap-4">
+                  <span>Full-house bundle</span>
+                  <span className="font-semibold text-primary-900">
+                    −{Math.round(BUNDLE_DISCOUNT * 100)}%
+                  </span>
+                </div>
+              )}
+              <div className="flex justify-between gap-4">
+                <span>Base</span>
+                <span className="font-semibold text-primary-900">
+                  {formatCurrency(estimate.baseLow)} –{" "}
+                  {formatCurrency(estimate.baseHigh)}
+                </span>
+              </div>
+              {estimate.addOnsHigh > 0 && (
+                <div className="flex justify-between gap-4">
+                  <span>Add-ons (est.)</span>
+                  <span className="font-semibold text-primary-900">
+                    +{formatCurrency(estimate.addOnsLow)} –{" "}
+                    {formatCurrency(estimate.addOnsHigh)}
+                  </span>
+                </div>
+              )}
             </div>
           )}
 
@@ -510,11 +603,14 @@ export function CostCalculator() {
         <Info className="mt-0.5 h-5 w-5 shrink-0 text-muted" />
         <p className="text-xs leading-relaxed text-muted">
           <strong className="text-foreground">This is an estimate, not a quote.</strong>{" "}
-          Every home is different. Exact pricing depends on paint grade, trim complexity,
-          number of stories, accessibility, and specific prep requirements we can only
-          determine on site. For a real written quote, schedule a free walk-through by
-          calling{" "}
-          <Link href="/contact-us" className="font-semibold text-primary-600 hover:underline">
+          Every home is different. Exact pricing depends on paint grade, trim
+          complexity, accessibility, and specific prep requirements we can only
+          determine on site. For a real written quote, schedule a free
+          walk-through by calling{" "}
+          <Link
+            href="/contact-us"
+            className="font-semibold text-primary-600 hover:underline"
+          >
             {businessConfig.phone}
           </Link>
           .
