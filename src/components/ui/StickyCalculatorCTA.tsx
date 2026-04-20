@@ -21,7 +21,7 @@ export function StickyCalculatorCTA() {
       href="/painting-cost-calculator/"
       aria-label="Open the painting cost calculator"
       className={[
-        "fixed z-40 inline-flex items-center gap-2 rounded-full",
+        "fixed z-40 inline-flex items-center gap-2 whitespace-nowrap rounded-full",
         "bg-primary-600 px-5 py-3 text-sm font-semibold text-white",
         "shadow-lg shadow-primary-600/30",
         "transition-transform transition-shadow duration-200",
@@ -34,7 +34,7 @@ export function StickyCalculatorCTA() {
       ].join(" ")}
     >
       <Calculator className="h-4 w-4" aria-hidden="true" />
-      <span>Painting Cost Calculator</span>
+      <span>Cost Calculator</span>
     </Link>
   );
 }
