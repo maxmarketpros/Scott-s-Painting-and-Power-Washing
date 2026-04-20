@@ -18,8 +18,8 @@ export function StickyCalculatorCTA() {
 
   return (
     <Link
-      href="/painting-cost-calculator/"
-      aria-label="Open the painting cost calculator"
+      href="/painting-cost-calculator/#calculator"
+      aria-label="Jump to the painting cost calculator"
       className={[
         "fixed z-40 inline-flex items-center gap-2 whitespace-nowrap rounded-full",
         "bg-primary-600 px-5 py-3 text-sm font-semibold text-white",

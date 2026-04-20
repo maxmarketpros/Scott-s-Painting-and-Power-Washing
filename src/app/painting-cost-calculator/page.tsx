@@ -82,7 +82,7 @@ export default function PaintingCostCalculatorPage() {
           </div>
 
           {/* Calculator */}
-          <div className="mx-auto mt-12 max-w-4xl">
+          <div id="calculator" className="mx-auto mt-12 max-w-4xl scroll-mt-24">
             <CostCalculator />
           </div>
         </Container>
