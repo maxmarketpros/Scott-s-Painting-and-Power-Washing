@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { StickyCalculatorCTA } from "@/components/ui/StickyCalculatorCTA";
 import { siteConfig } from "@/config/site";
 import { generateLocalBusinessSchema } from "@/lib/structured-data";
 import "./globals.css";
@@ -109,6 +110,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <StickyCalculatorCTA />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
