@@ -415,6 +415,29 @@ export const galleryItems: GalleryItem[] = [
     width: 1920,
     height: 2560,
   },
+
+  // ===== NEW EXTERIOR PROJECTS (April 2026) =====
+  {
+    src: "/images/exterior-painting-collage-ranch-doors.jpg",
+    alt: "Ranch-style home exterior repaint with freshly painted garage door and side entry",
+    category: "Exterior Painting",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/images/exterior-painting-collage-condo-fence.jpg",
+    alt: "Greensview Village condominium exterior painting — wrought iron fencing and community signage",
+    category: "Exterior Painting",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/images/exterior-painting-collage-screened-porch.jpg",
+    alt: "Screened porch painting project with refreshed ceiling, floor, trim, and ceiling fan",
+    category: "Exterior Painting",
+    width: 1080,
+    height: 1920,
+  },
 ];
 
 export const galleryCategories = [
