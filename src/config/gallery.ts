@@ -416,7 +416,7 @@ export const galleryItems: GalleryItem[] = [
     height: 2560,
   },
 
-  // ===== NEW EXTERIOR PROJECTS (April 2026) =====
+  // ===== RESIDENTIAL EXTERIOR (April 2026) =====
   {
     src: "/images/exterior-painting-collage-ranch-doors.jpg",
     alt: "Ranch-style home exterior repaint with freshly painted garage door and side entry",
@@ -425,16 +425,39 @@ export const galleryItems: GalleryItem[] = [
     height: 1920,
   },
   {
-    src: "/images/exterior-painting-collage-condo-fence.jpg",
-    alt: "Greensview Village condominium exterior painting — wrought iron fencing and community signage",
+    src: "/images/exterior-painting-collage-screened-porch.jpg",
+    alt: "Screened porch painting project with refreshed ceiling, floor, trim, and ceiling fan",
     category: "Exterior Painting",
     width: 1080,
     height: 1920,
   },
+
+  // ===== COMMERCIAL PAINTING =====
   {
-    src: "/images/exterior-painting-collage-screened-porch.jpg",
-    alt: "Screened porch painting project with refreshed ceiling, floor, trim, and ceiling fan",
-    category: "Exterior Painting",
+    src: "/images/commercial-painting-steaknshake-front.jpg",
+    alt: "Steak 'n Shake commercial exterior repaint — front entrance with new white finish and black accent stripe",
+    category: "Commercial Painting",
+    width: 1920,
+    height: 1440,
+  },
+  {
+    src: "/images/commercial-painting-steaknshake-drivethru.jpg",
+    alt: "Steak 'n Shake commercial exterior repaint — drive-thru side wall after fresh coat",
+    category: "Commercial Painting",
+    width: 1920,
+    height: 1440,
+  },
+  {
+    src: "/images/commercial-painting-steaknshake-side.jpg",
+    alt: "Steak 'n Shake commercial exterior repaint — side elevation with crisp white walls and black trim band",
+    category: "Commercial Painting",
+    width: 1920,
+    height: 1440,
+  },
+  {
+    src: "/images/exterior-painting-collage-condo-fence.jpg",
+    alt: "Greensview Village condominium exterior painting — wrought iron fencing and community signage",
+    category: "Commercial Painting",
     width: 1080,
     height: 1920,
   },
