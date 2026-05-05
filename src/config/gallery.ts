@@ -432,6 +432,38 @@ export const galleryItems: GalleryItem[] = [
     height: 1920,
   },
 
+  // ===== RESIDENTIAL INTERIOR (May 2026) =====
+  {
+    src: "/images/interior-painting-collage-cabinets-prep.jpg",
+    alt: "Kitchen cabinet refinishing project collage — taped-off cabinets and prepped surfaces ready for paint",
+    category: "Interior Painting",
+    width: 2160,
+    height: 3840,
+  },
+  {
+    src: "/images/interior-painting-collage-cabinets-progress.jpg",
+    alt: "Kitchen cabinet refinishing project collage — primed cabinet boxes and finished dark stained cabinetry",
+    category: "Interior Painting",
+    width: 2160,
+    height: 3840,
+  },
+
+  // ===== RESIDENTIAL EXTERIOR (May 2026) =====
+  {
+    src: "/images/exterior-painting-collage-porch-columns.jpg",
+    alt: "Historic front porch repaint collage — turned column balusters and brick porch prepped and painted white",
+    category: "Exterior Painting",
+    width: 2160,
+    height: 3840,
+  },
+  {
+    src: "/images/exterior-painting-collage-deck-railing.jpg",
+    alt: "Backyard deck and railing repaint collage — weathered wood prepped and finished with fresh white coat",
+    category: "Exterior Painting",
+    width: 2160,
+    height: 3840,
+  },
+
   // ===== COMMERCIAL PAINTING =====
   {
     src: "/images/commercial-painting-steaknshake-front.jpg",
